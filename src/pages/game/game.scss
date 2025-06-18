@@ -1,0 +1,292 @@
+// 游戏页面容器
+.game-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px 16px;
+  
+  &.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.loading-text {
+  font-size: 18px;
+  color: white;
+  font-weight: bold;
+}
+
+// 游戏棋盘区域
+.game-board {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+// 暂停遮罩
+.pause-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.pause-content {
+  background-color: white;
+  border-radius: 16px;
+  padding: 40px 30px;
+  text-align: center;
+  max-width: 280px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.pause-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.pause-subtitle {
+  font-size: 16px;
+  color: #7f8c8d;
+  line-height: 1.4;
+  display: block;
+}
+
+// 完成庆祝遮罩
+.completion-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.completion-content {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  padding: 40px 30px;
+  text-align: center;
+  max-width: 320px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+  animation: slideUp 0.6s ease-out;
+}
+
+.completion-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 24px;
+  display: block;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+// 完成统计信息
+.completion-stats {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(10px);
+}
+
+.stat-item {
+  font-size: 16px;
+  color: white;
+  margin-bottom: 8px;
+  display: block;
+  font-weight: 500;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// 完成页面操作按钮
+.completion-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.action-button {
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  &.primary {
+    background-color: #27ae60;
+    box-shadow: 0 4px 16px rgba(39, 174, 96, 0.3);
+    
+    &:hover {
+      background-color: #2ecc71;
+      box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+    }
+  }
+  
+  &.secondary {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+  }
+}
+
+.action-text {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}
+
+// 动画效果
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// 响应式设计
+@media (max-width: 400px) {
+  .game-page {
+    padding: 16px 12px;
+  }
+  
+  .game-board {
+    margin: 16px 0;
+  }
+  
+  .pause-content {
+    padding: 30px 20px;
+    max-width: 250px;
+  }
+  
+  .pause-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .pause-subtitle {
+    font-size: 14px;
+  }
+  
+  .completion-content {
+    padding: 30px 20px;
+    max-width: 280px;
+  }
+  
+  .completion-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .completion-stats {
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .stat-item {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  
+  .action-button {
+    height: 44px;
+  }
+  
+  .action-text {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 350px) {
+  .game-page {
+    padding: 12px 8px;
+  }
+  
+  .game-board {
+    margin: 12px 0;
+  }
+  
+  .pause-content {
+    padding: 25px 15px;
+    max-width: 220px;
+  }
+  
+  .pause-title {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  
+  .pause-subtitle {
+    font-size: 13px;
+  }
+  
+  .completion-content {
+    padding: 25px 15px;
+    max-width: 250px;
+  }
+  
+  .completion-title {
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+  
+  .completion-stats {
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+  
+  .stat-item {
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+  
+  .action-button {
+    height: 40px;
+  }
+  
+  .action-text {
+    font-size: 14px;
+  }
+} 

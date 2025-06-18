@@ -1,0 +1,349 @@
+// 游戏控制面板容器
+.game-controls {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+// 游戏信息栏
+.game-info {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.info-item {
+  text-align: center;
+  background-color: white;
+  padding: 8px 4px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.info-label {
+  display: block;
+  font-size: 12px;
+  color: #7f8c8d;
+  margin-bottom: 4px;
+}
+
+.info-value {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  color: #2c3e50;
+  
+  &.warning {
+    color: #e74c3c;
+  }
+}
+
+// 进度条
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: #ecf0f1;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #27ae60, #2ecc71);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+// 难度选择器
+.difficulty-selector {
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.difficulty-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.difficulty-button {
+  flex: 1;
+  height: 36px;
+  background-color: #bdc3c7;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  &.active {
+    background-color: #3498db;
+    
+    .difficulty-text {
+      color: white;
+    }
+  }
+  
+  &:hover:not(.active) {
+    background-color: #95a5a6;
+  }
+}
+
+.difficulty-text {
+  font-size: 14px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+// 控制按钮区域
+.control-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.control-button {
+  flex: 1;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  &:active {
+    transform: scale(0.95);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  
+  // 暂停按钮
+  &.pause {
+    background-color: #f39c12;
+    
+    &:hover {
+      background-color: #e67e22;
+    }
+  }
+  
+  // 继续按钮
+  &.resume {
+    background-color: #27ae60;
+    
+    &:hover {
+      background-color: #2ecc71;
+    }
+  }
+  
+  // 提示按钮
+  &.hint {
+    background-color: #9b59b6;
+    
+    &:hover {
+      background-color: #8e44ad;
+    }
+  }
+  
+  // 检查按钮
+  &.check {
+    background-color: #e67e22;
+    
+    &:hover {
+      background-color: #d35400;
+    }
+  }
+}
+
+.button-text {
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+}
+
+// 游戏状态提示
+.game-status {
+  text-align: center;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 8px;
+  
+  &.paused {
+    background-color: #f39c12;
+    color: white;
+  }
+  
+  &.completed {
+    background-color: #27ae60;
+    color: white;
+  }
+}
+
+.status-text {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.status-detail {
+  font-size: 12px;
+  opacity: 0.9;
+  display: block;
+}
+
+// 响应式设计
+@media (max-width: 400px) {
+  .game-controls {
+    max-width: 320px;
+    padding: 12px;
+  }
+  
+  .game-info {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  
+  .info-item {
+    padding: 6px 2px;
+  }
+  
+  .info-label {
+    font-size: 11px;
+  }
+  
+  .info-value {
+    font-size: 14px;
+  }
+  
+  .progress-bar {
+    margin-bottom: 12px;
+  }
+  
+  .difficulty-selector {
+    margin-bottom: 12px;
+  }
+  
+  .section-title {
+    font-size: 13px;
+  }
+  
+  .difficulty-button {
+    height: 32px;
+  }
+  
+  .difficulty-text {
+    font-size: 13px;
+  }
+  
+  .control-buttons {
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  
+  .control-button {
+    height: 40px;
+  }
+  
+  .button-text {
+    font-size: 13px;
+  }
+  
+  .game-status {
+    padding: 10px;
+  }
+  
+  .status-text {
+    font-size: 14px;
+  }
+  
+  .status-detail {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 350px) {
+  .game-controls {
+    max-width: 280px;
+    padding: 10px;
+  }
+  
+  .game-info {
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  
+  .info-item {
+    padding: 4px 2px;
+  }
+  
+  .info-label {
+    font-size: 10px;
+  }
+  
+  .info-value {
+    font-size: 12px;
+  }
+  
+  .progress-bar {
+    margin-bottom: 10px;
+  }
+  
+  .difficulty-selector {
+    margin-bottom: 10px;
+  }
+  
+  .section-title {
+    font-size: 12px;
+  }
+  
+  .difficulty-button {
+    height: 28px;
+  }
+  
+  .difficulty-text {
+    font-size: 12px;
+  }
+  
+  .control-buttons {
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+  
+  .control-button {
+    height: 36px;
+  }
+  
+  .button-text {
+    font-size: 12px;
+  }
+  
+  .game-status {
+    padding: 8px;
+  }
+  
+  .status-text {
+    font-size: 13px;
+  }
+  
+  .status-detail {
+    font-size: 10px;
+  }
+} 

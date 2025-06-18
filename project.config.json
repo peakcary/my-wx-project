@@ -1,0 +1,16 @@
+{
+  "minigameRoot": "./dist",
+  "projectname": "my-wx-sudoku-game",
+  "description": "微信小游戏数独",
+  "appid": "touristappid",
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
+    "enhance": false,
+    "compileHotReLoad": false,
+    "postcss": false,
+    "minified": false,
+    "showShadowRootInWxmlPanel": true
+  },
+  "compileType": "minigame"
+}

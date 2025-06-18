@@ -1,0 +1,181 @@
+// 数独网格容器
+.sudoku-grid {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  background-color: #34495e;
+  border: 2px solid #2c3e50;
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+// 数独行
+.sudoku-row {
+  display: flex;
+  width: 100%;
+  height: 40px;
+}
+
+// 数独单元格
+.sudoku-cell {
+  flex: 1;
+  height: 40px;
+  border: 1px solid #7f8c8d;
+  background-color: #ecf0f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  // 鼠标悬停效果
+  &:active {
+    background-color: #d5dbdb;
+    transform: scale(0.95);
+  }
+  
+  // 选中状态
+  &.selected {
+    background-color: #3498db;
+    color: white;
+    border-color: #2980b9;
+    box-shadow: inset 0 0 0 2px #2980b9;
+  }
+  
+  // 高亮状态（同行列宫）
+  &.highlighted {
+    background-color: #bdc3c7;
+  }
+  
+  // 错误状态
+  &.error {
+    background-color: #e74c3c;
+    color: white;
+    animation: shake 0.5s ease-in-out;
+  }
+  
+  // 原始数字（题目给定）
+  &.original {
+    background-color: #95a5a6;
+    color: #2c3e50;
+    font-weight: bold;
+    cursor: default;
+    
+    &:active {
+      transform: none;
+    }
+  }
+  
+  // 3x3宫格边界
+  &.right-border {
+    border-right: 3px solid #2c3e50;
+  }
+  
+  &.bottom-border {
+    border-bottom: 3px solid #2c3e50;
+  }
+}
+
+// 单元格数字显示
+.cell-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #2c3e50;
+  z-index: 2;
+  
+  .sudoku-cell.selected & {
+    color: white;
+  }
+  
+  .sudoku-cell.error & {
+    color: white;
+  }
+  
+  .sudoku-cell.original & {
+    color: #2c3e50;
+  }
+}
+
+// 候选数字容器
+.cell-candidates {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  z-index: 1;
+  pointer-events: none;
+}
+
+// 单个候选数字
+.candidate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  color: #7f8c8d;
+  
+  &.visible {
+    color: #2c3e50;
+    font-weight: bold;
+  }
+}
+
+// 动画效果
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+  20%, 40%, 60%, 80% { transform: translateX(2px); }
+}
+
+// 响应式设计
+@media (max-width: 400px) {
+  .sudoku-grid {
+    max-width: 320px;
+    padding: 6px;
+  }
+  
+  .sudoku-row {
+    height: 35px;
+  }
+  
+  .sudoku-cell {
+    height: 35px;
+  }
+  
+  .cell-value {
+    font-size: 16px;
+  }
+  
+  .candidate {
+    font-size: 7px;
+  }
+}
+
+@media (max-width: 350px) {
+  .sudoku-grid {
+    max-width: 280px;
+    padding: 4px;
+  }
+  
+  .sudoku-row {
+    height: 30px;
+  }
+  
+  .sudoku-cell {
+    height: 30px;
+  }
+  
+  .cell-value {
+    font-size: 14px;
+  }
+  
+  .candidate {
+    font-size: 6px;
+  }
+} 
