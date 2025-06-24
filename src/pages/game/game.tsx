@@ -44,28 +44,28 @@ export default function GamePage() {
     setSelectedNumber(number);
     
     // 如果有选中的单元格，直接填入数字
-    if (gameState?.selectedCell) {
+    if (gameState && gameState.selectedCell) {
       const { row, col } = gameState.selectedCell;
       setCellValue(row, col, number);
     }
-  }, [gameState?.selectedCell, setCellValue]);
+  }, [gameState, setCellValue]);
 
   // 处理清除操作
   const handleClear = useCallback(() => {
-    if (gameState?.selectedCell) {
+    if (gameState && gameState.selectedCell) {
       const { row, col } = gameState.selectedCell;
       clearCell(row, col);
     }
-  }, [gameState?.selectedCell, clearCell]);
+  }, [gameState, clearCell]);
 
   // 处理橡皮擦操作
   const handleEraser = useCallback(() => {
     setSelectedNumber(0);
-    if (gameState?.selectedCell) {
+    if (gameState && gameState.selectedCell) {
       const { row, col } = gameState.selectedCell;
       setCellValue(row, col, 0);
     }
-  }, [gameState?.selectedCell, setCellValue]);
+  }, [gameState, setCellValue]);
 
   // 处理新游戏
   const handleNewGame = useCallback((difficulty: Difficulty) => {
@@ -135,13 +135,15 @@ export default function GamePage() {
 
       {/* 数字输入面板 */}
       {!gameState.isPaused && !gameState.isCompleted && (
-        <NumberPad
-          onNumberSelect={handleNumberSelect}
-          onClear={handleClear}
-          onEraser={handleEraser}
-          selectedNumber={selectedNumber}
-          numberCounts={getNumberCounts()}
-        />
+        <View className="number-pad-container">
+          <NumberPad
+            onNumberSelect={handleNumberSelect}
+            onClear={handleClear}
+            onEraser={handleEraser}
+            selectedNumber={selectedNumber}
+            numberCounts={getNumberCounts()}
+          />
+        </View>
       )}
 
       {/* 暂停遮罩 */}

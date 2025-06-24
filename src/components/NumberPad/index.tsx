@@ -33,6 +33,8 @@ const NumberPad: React.FC<NumberPadProps> = ({
 
   return (
     <View className="number-pad">
+
+      
       {/* 数字按钮 1-9 */}
       <View className="number-buttons">
         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(number => {

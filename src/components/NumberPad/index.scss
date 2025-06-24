@@ -1,27 +1,29 @@
 // 数字面板容器
 .number-pad {
   width: 100%;
-  max-width: 360px;
-  margin: 20px auto;
-  padding: 16px;
-  background-color: #ecf0f1;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: min(560rpx, 90vw); // 与数独网格保持一致的尺寸
+  margin: 0 auto;
+  padding: 12rpx;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 16rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10rpx);
+  box-sizing: border-box;
 }
 
 // 数字按钮区域
 .number-buttons {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 16rpx;
+  margin-bottom: 24rpx;
 }
 
 // 单个数字按钮
 .number-button {
-  height: 60px;
+  height: 80rpx; // 进一步减小高度
   background-color: #3498db;
-  border-radius: 8px;
+  border-radius: 12rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,17 +31,17 @@
   cursor: pointer;
   transition: all 0.2s ease;
   position: relative;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4rpx 12rpx rgba(52, 152, 219, 0.3);
   
   &:active {
     transform: scale(0.95);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.2);
   }
   
   // 选中状态
   &.selected {
     background-color: #e67e22;
-    box-shadow: 0 0 0 2px #d35400;
+    box-shadow: 0 0 0 4rpx #d35400;
   }
   
   // 完成状态（数字已满9个）
@@ -64,7 +66,7 @@
 
 // 数字文本
 .number-text {
-  font-size: 24px;
+  font-size: 48rpx;
   font-weight: bold;
   color: white;
   line-height: 1;
@@ -73,16 +75,16 @@
 // 数字计数显示
 .number-count {
   position: absolute;
-  top: 4px;
-  right: 4px;
+  top: 8rpx;
+  right: 8rpx;
   background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 8px;
-  padding: 2px 4px;
-  min-width: 20px;
+  border-radius: 16rpx;
+  padding: 4rpx 8rpx;
+  min-width: 40rpx;
 }
 
 .count-text {
-  font-size: 10px;
+  font-size: 20rpx;
   color: white;
   font-weight: bold;
   text-align: center;
@@ -91,24 +93,24 @@
 // 功能按钮区域
 .function-buttons {
   display: flex;
-  gap: 12px;
+  gap: 16rpx;
 }
 
 // 功能按钮
 .function-button {
   flex: 1;
-  height: 50px;
-  border-radius: 8px;
+  height: 60rpx; // 进一步减小功能按钮高度
+  border-radius: 12rpx;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);
   
   &:active {
     transform: scale(0.95);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.2);
   }
 }
 
@@ -132,82 +134,9 @@
 
 // 功能按钮文本
 .function-text {
-  font-size: 16px;
+  font-size: 32rpx;
   font-weight: bold;
   color: white;
 }
 
-// 响应式设计
-@media (max-width: 400px) {
-  .number-pad {
-    max-width: 320px;
-    padding: 12px;
-    margin: 16px auto;
-  }
-  
-  .number-buttons {
-    gap: 8px;
-    margin-bottom: 12px;
-  }
-  
-  .number-button {
-    height: 50px;
-  }
-  
-  .number-text {
-    font-size: 20px;
-  }
-  
-  .count-text {
-    font-size: 9px;
-  }
-  
-  .function-button {
-    height: 45px;
-  }
-  
-  .function-text {
-    font-size: 14px;
-  }
-  
-  .function-buttons {
-    gap: 8px;
-  }
-}
-
-@media (max-width: 350px) {
-  .number-pad {
-    max-width: 280px;
-    padding: 10px;
-    margin: 12px auto;
-  }
-  
-  .number-buttons {
-    gap: 6px;
-    margin-bottom: 10px;
-  }
-  
-  .number-button {
-    height: 45px;
-  }
-  
-  .number-text {
-    font-size: 18px;
-  }
-  
-  .count-text {
-    font-size: 8px;
-  }
-  
-  .function-button {
-    height: 40px;
-  }
-  
-  .function-text {
-    font-size: 12px;
-  }
-  
-  .function-buttons {
-    gap: 6px;
-  }
-} 
+// 由于采用rpx单位，已实现自适应，无需响应式断点 

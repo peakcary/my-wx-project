@@ -1,4 +1,4 @@
-import { View, Text, Image } from '@tarojs/components'
+import { View, Text } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
 import Taro from '@tarojs/taro'
 import './index.scss'
@@ -9,6 +9,7 @@ export default function Index () {
   })
 
   const handleStartGame = () => {
+    console.log('点击开始游戏')
     Taro.navigateTo({
       url: '/pages/game/game'
     })

@@ -3,12 +3,13 @@
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 0;
+  overflow-x: hidden; // 防止横向滚动
 }
 
 // 头部区域
 .header {
   text-align: center;
-  padding: 60px 20px 40px;
+  padding: 120rpx 40rpx 80rpx;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
 }
@@ -20,55 +21,55 @@
 }
 
 .logo-text {
-  font-size: 60px;
-  margin-bottom: 16px;
+  font-size: 120rpx;
+  margin-bottom: 32rpx;
   display: block;
   animation: bounce 2s infinite;
 }
 
 .app-title {
-  font-size: 32px;
+  font-size: 64rpx;
   font-weight: bold;
   color: white;
-  margin-bottom: 8px;
+  margin-bottom: 16rpx;
   display: block;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.3);
 }
 
 .app-subtitle {
-  font-size: 16px;
+  font-size: 32rpx;
   color: rgba(255, 255, 255, 0.8);
   display: block;
 }
 
 // 特色功能区域
 .features {
-  padding: 40px 20px;
+  padding: 80rpx 40rpx;
 }
 
 .section-title {
-  font-size: 24px;
+  font-size: 48rpx;
   font-weight: bold;
   color: white;
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 48rpx;
   display: block;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.3);
 }
 
 .feature-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  gap: 32rpx;
 }
 
 .feature-item {
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 20px;
+  border-radius: 32rpx;
+  padding: 40rpx;
   text-align: center;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 2rpx solid rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
   
   &:active {
@@ -77,21 +78,21 @@
 }
 
 .feature-icon {
-  font-size: 32px;
-  margin-bottom: 12px;
+  font-size: 64rpx;
+  margin-bottom: 24rpx;
   display: block;
 }
 
 .feature-title {
-  font-size: 16px;
+  font-size: 32rpx;
   font-weight: bold;
   color: white;
-  margin-bottom: 8px;
+  margin-bottom: 16rpx;
   display: block;
 }
 
 .feature-desc {
-  font-size: 14px;
+  font-size: 28rpx;
   color: rgba(255, 255, 255, 0.8);
   line-height: 1.4;
   display: block;
@@ -99,19 +100,19 @@
 
 // 游戏说明区域
 .game-info {
-  padding: 40px 20px;
+  padding: 80rpx 40rpx;
   background: rgba(255, 255, 255, 0.05);
 }
 
 .info-content {
-  max-width: 320px;
+  max-width: 640rpx;
   margin: 0 auto;
 }
 
 .info-item {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 40rpx;
   
   &:last-child {
     margin-bottom: 0;
@@ -119,22 +120,22 @@
 }
 
 .info-number {
-  width: 32px;
-  height: 32px;
+  width: 64rpx;
+  height: 64rpx;
   background-color: #27ae60;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 32rpx;
   font-weight: bold;
   color: white;
-  margin-right: 16px;
+  margin-right: 32rpx;
   flex-shrink: 0;
 }
 
 .info-text {
-  font-size: 16px;
+  font-size: 32rpx;
   color: white;
   line-height: 1.4;
   flex: 1;
@@ -142,46 +143,46 @@
 
 // 开始游戏区域
 .start-section {
-  padding: 40px 20px;
+  padding: 80rpx 40rpx;
   text-align: center;
 }
 
 .start-button {
   background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-  border-radius: 25px;
-  height: 50px;
+  border-radius: 50rpx;
+  height: 100rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 20px;
-  max-width: 280px;
+  margin: 0 auto 40rpx;
+  max-width: 560rpx;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(39, 174, 96, 0.3);
+  box-shadow: 0 8rpx 32rpx rgba(39, 174, 96, 0.3);
   
   &:active {
     transform: scale(0.95);
-    box-shadow: 0 2px 8px rgba(39, 174, 96, 0.4);
+    box-shadow: 0 4rpx 16rpx rgba(39, 174, 96, 0.4);
   }
 }
 
 .start-text {
-  font-size: 18px;
+  font-size: 36rpx;
   font-weight: bold;
   color: white;
 }
 
 .tip {
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 12px 16px;
+  border-radius: 24rpx;
+  padding: 24rpx 32rpx;
   margin: 0 auto;
-  max-width: 300px;
+  max-width: 600rpx;
   backdrop-filter: blur(10px);
 }
 
 .tip-text {
-  font-size: 14px;
+  font-size: 28rpx;
   color: rgba(255, 255, 255, 0.9);
   line-height: 1.4;
   display: block;
@@ -189,132 +190,26 @@
 
 // 底部信息
 .footer {
-  padding: 20px;
+  padding: 40rpx;
   text-align: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 2rpx solid rgba(255, 255, 255, 0.1);
 }
 
 .footer-text {
-  font-size: 12px;
+  font-size: 24rpx;
   color: rgba(255, 255, 255, 0.6);
   display: block;
 }
 
-// 动画效果
+// Logo动画
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% {
     transform: translateY(0);
   }
   40% {
-    transform: translateY(-10px);
+    transform: translateY(-10rpx);
   }
   60% {
-    transform: translateY(-5px);
-  }
-}
-
-// 响应式设计
-@media (max-width: 400px) {
-  .header {
-    padding: 50px 16px 30px;
-  }
-  
-  .logo-text {
-    font-size: 50px;
-    margin-bottom: 12px;
-  }
-  
-  .app-title {
-    font-size: 28px;
-    margin-bottom: 6px;
-  }
-  
-  .app-subtitle {
-    font-size: 15px;
-  }
-  
-  .features {
-    padding: 30px 16px;
-  }
-  
-  .section-title {
-    font-size: 22px;
-    margin-bottom: 20px;
-  }
-  
-  .feature-grid {
-    gap: 12px;
-  }
-  
-  .feature-item {
-    padding: 16px;
-  }
-  
-  .feature-icon {
-    font-size: 28px;
-    margin-bottom: 10px;
-  }
-  
-  .feature-title {
-    font-size: 15px;
-    margin-bottom: 6px;
-  }
-  
-  .feature-desc {
-    font-size: 13px;
-  }
-  
-  .game-info {
-    padding: 30px 16px;
-  }
-  
-  .info-content {
-    max-width: 300px;
-  }
-  
-  .info-item {
-    margin-bottom: 16px;
-  }
-  
-  .info-number {
-    width: 28px;
-    height: 28px;
-    font-size: 14px;
-    margin-right: 12px;
-  }
-  
-  .info-text {
-    font-size: 15px;
-  }
-  
-  .start-section {
-    padding: 30px 16px;
-  }
-  
-  .start-button {
-    height: 46px;
-    max-width: 260px;
-    margin-bottom: 16px;
-  }
-  
-  .start-text {
-    font-size: 17px;
-  }
-  
-  .tip {
-    padding: 10px 14px;
-    max-width: 280px;
-  }
-  
-  .tip-text {
-    font-size: 13px;
-  }
-  
-  .footer {
-    padding: 16px;
-  }
-  
-  .footer-text {
-    font-size: 11px;
+    transform: translateY(-5rpx);
   }
 }

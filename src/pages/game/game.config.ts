@@ -3,5 +3,6 @@ export default definePageConfig({
   navigationBarBackgroundColor: '#2c3e50',
   navigationBarTextStyle: 'white',
   backgroundColor: '#667eea',
-  disableScroll: true
+  enablePullDownRefresh: false, // 禁用下拉刷新
+  disableScroll: false // 允许页面滚动
 }) 

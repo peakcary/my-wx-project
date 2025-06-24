@@ -2,24 +2,38 @@
 .game-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 20px 16px;
+  padding: 16rpx;
+  padding-bottom: calc(40rpx + constant(safe-area-inset-bottom)); // 增加底部空间
+  padding-bottom: calc(40rpx + env(safe-area-inset-bottom)); // 增加底部空间
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx; // 组件间统一间距
   
   &.loading {
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: 100vh;
   }
 }
 
 .loading-text {
-  font-size: 18px;
+  font-size: 36rpx;
   color: white;
   font-weight: bold;
 }
 
 // 游戏棋盘区域
 .game-board {
-  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+// 数字面板容器
+.number-pad-container {
+  width: 100%;
   display: flex;
   justify-content: center;
 }
@@ -40,23 +54,23 @@
 
 .pause-content {
   background-color: white;
-  border-radius: 16px;
-  padding: 40px 30px;
+  border-radius: 32rpx;
+  padding: 80rpx 60rpx;
   text-align: center;
-  max-width: 280px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  max-width: 560rpx;
+  box-shadow: 0 16rpx 64rpx rgba(0, 0, 0, 0.3);
 }
 
 .pause-title {
-  font-size: 24px;
+  font-size: 48rpx;
   font-weight: bold;
   color: #2c3e50;
-  margin-bottom: 12px;
+  margin-bottom: 24rpx;
   display: block;
 }
 
 .pause-subtitle {
-  font-size: 16px;
+  font-size: 32rpx;
   color: #7f8c8d;
   line-height: 1.4;
   display: block;
@@ -79,36 +93,36 @@
 
 .completion-content {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 20px;
-  padding: 40px 30px;
+  border-radius: 40rpx;
+  padding: 80rpx 60rpx;
   text-align: center;
-  max-width: 320px;
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+  max-width: 640rpx;
+  box-shadow: 0 24rpx 96rpx rgba(0, 0, 0, 0.4);
   animation: slideUp 0.6s ease-out;
 }
 
 .completion-title {
-  font-size: 28px;
+  font-size: 56rpx;
   font-weight: bold;
   color: white;
-  margin-bottom: 24px;
+  margin-bottom: 48rpx;
   display: block;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.3);
 }
 
 // 完成统计信息
 .completion-stats {
   background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 24px;
+  border-radius: 24rpx;
+  padding: 40rpx;
+  margin-bottom: 48rpx;
   backdrop-filter: blur(10px);
 }
 
 .stat-item {
-  font-size: 16px;
+  font-size: 32rpx;
   color: white;
-  margin-bottom: 8px;
+  margin-bottom: 16rpx;
   display: block;
   font-weight: 500;
   
@@ -121,12 +135,12 @@
 .completion-actions {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 24rpx;
 }
 
 .action-button {
-  height: 48px;
-  border-radius: 12px;
+  height: 96rpx;
+  border-radius: 24rpx;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -139,17 +153,17 @@
   
   &.primary {
     background-color: #27ae60;
-    box-shadow: 0 4px 16px rgba(39, 174, 96, 0.3);
+    box-shadow: 0 8rpx 32rpx rgba(39, 174, 96, 0.3);
     
     &:hover {
       background-color: #2ecc71;
-      box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+      box-shadow: 0 12rpx 40rpx rgba(39, 174, 96, 0.4);
     }
   }
   
   &.secondary {
     background-color: rgba(255, 255, 255, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    border: 4rpx solid rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(10px);
     
     &:hover {
@@ -160,7 +174,7 @@
 }
 
 .action-text {
-  font-size: 16px;
+  font-size: 32rpx;
   font-weight: bold;
   color: white;
 }
@@ -177,7 +191,7 @@
 
 @keyframes slideUp {
   from {
-    transform: translateY(30px);
+    transform: translateY(60rpx);
     opacity: 0;
   }
   to {
@@ -186,107 +200,4 @@
   }
 }
 
-// 响应式设计
-@media (max-width: 400px) {
-  .game-page {
-    padding: 16px 12px;
-  }
-  
-  .game-board {
-    margin: 16px 0;
-  }
-  
-  .pause-content {
-    padding: 30px 20px;
-    max-width: 250px;
-  }
-  
-  .pause-title {
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-  
-  .pause-subtitle {
-    font-size: 14px;
-  }
-  
-  .completion-content {
-    padding: 30px 20px;
-    max-width: 280px;
-  }
-  
-  .completion-title {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .completion-stats {
-    padding: 16px;
-    margin-bottom: 20px;
-  }
-  
-  .stat-item {
-    font-size: 14px;
-    margin-bottom: 6px;
-  }
-  
-  .action-button {
-    height: 44px;
-  }
-  
-  .action-text {
-    font-size: 15px;
-  }
-}
-
-@media (max-width: 350px) {
-  .game-page {
-    padding: 12px 8px;
-  }
-  
-  .game-board {
-    margin: 12px 0;
-  }
-  
-  .pause-content {
-    padding: 25px 15px;
-    max-width: 220px;
-  }
-  
-  .pause-title {
-    font-size: 18px;
-    margin-bottom: 8px;
-  }
-  
-  .pause-subtitle {
-    font-size: 13px;
-  }
-  
-  .completion-content {
-    padding: 25px 15px;
-    max-width: 250px;
-  }
-  
-  .completion-title {
-    font-size: 22px;
-    margin-bottom: 16px;
-  }
-  
-  .completion-stats {
-    padding: 12px;
-    margin-bottom: 16px;
-  }
-  
-  .stat-item {
-    font-size: 13px;
-    margin-bottom: 5px;
-  }
-  
-  .action-button {
-    height: 40px;
-  }
-  
-  .action-text {
-    font-size: 14px;
-  }
-} 
+// 由于采用rpx单位，已实现自适应，无需响应式断点 
