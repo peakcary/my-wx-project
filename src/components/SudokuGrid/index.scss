@@ -1,27 +1,28 @@
-// 数独网格容器
+// 数独网格容器 - 一屏适配设计
 .sudoku-grid {
   width: 100%;
-  max-width: min(560rpx, 75vw); // 进一步减小尺寸，确保数字面板有足够空间
+  max-width: min(480rpx, 75vw); // 紧凑网格尺寸
   margin: 0 auto;
   background-color: #34495e;
-  border: 4rpx solid #2c3e50;
+  border: 3rpx solid #2c3e50;
   border-radius: 16rpx;
-  padding: 12rpx;
-  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.3);
+  padding: 10rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
+  backdrop-filter: blur(10px);
 }
 
 // 数独行
 .sudoku-row {
   display: flex;
   width: 100%;
-  height: 80rpx;
+  height: 60rpx; // 紧凑格子大小
 }
 
 // 数独单元格
 .sudoku-cell {
   flex: 1;
-  height: 80rpx;
+  height: 60rpx;
   border: 2rpx solid #7f8c8d;
   background-color: #ecf0f1;
   display: flex;
@@ -81,7 +82,7 @@
 
 // 单元格数字显示
 .cell-value {
-  font-size: 36rpx;
+  font-size: 28rpx; // 适配紧凑尺寸
   font-weight: bold;
   color: #2c3e50;
   z-index: 2;

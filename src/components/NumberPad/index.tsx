@@ -9,6 +9,12 @@ interface NumberPadProps {
   onEraser: () => void;
   selectedNumber?: CellValue;
   numberCounts?: { [key: number]: number };
+  canClear?: boolean; // 是否可以清空当前选中的单元格
+  selectedCellInfo?: {
+    hasValue: boolean;
+    isOriginal: boolean;
+    value: CellValue;
+  };
 }
 
 const NumberPad: React.FC<NumberPadProps> = ({ 
@@ -16,7 +22,9 @@ const NumberPad: React.FC<NumberPadProps> = ({
   onClear, 
   onEraser,
   selectedNumber,
-  numberCounts = {}
+  numberCounts = {},
+  canClear = false,
+  selectedCellInfo
 }) => {
   
   const handleNumberClick = (number: CellValue) => {
@@ -71,10 +79,10 @@ const NumberPad: React.FC<NumberPadProps> = ({
         
         {/* 清空按钮 */}
         <View 
-          className="function-button clear-button"
-          onClick={handleClearClick}
+          className={`function-button clear-button ${!canClear ? 'disabled' : ''}`}
+          onClick={canClear ? handleClearClick : undefined}
         >
-          <Text className="function-text">清空</Text>
+          <Text className="function-text">清空棋盘</Text>
         </View>
       </View>
     </View>

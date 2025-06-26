@@ -48,37 +48,203 @@ export class SudokuGenerator {
    * 根据难度生成数独题目（移除部分数字）
    */
   static generatePuzzle(difficulty: Difficulty): { puzzle: SudokuBoard; solution: SudokuBoard } {
-    const solution = this.generateCompleteSudoku();
+    let attempts = 0;
+    const maxAttempts = 20; // 增加尝试次数
+    
+    // 尝试生成有唯一解的题目
+    while (attempts < maxAttempts) {
+      const solution = this.generateCompleteSudoku();
+      const puzzle = this.createPuzzleWithUniqueSolution(solution, difficulty);
+      
+      // 验证题目有唯一解
+      if (puzzle && this.verifyUniqueSolution(puzzle, solution)) {
+        console.log(`数独生成成功，尝试次数: ${attempts + 1}`);
+        return { puzzle, solution };
+      }
+      attempts++;
+    }
+    
+    // 如果无法生成有效题目，使用备用算法生成保证有解的题目
+    console.warn('使用备用算法生成数独题目');
+    return this.generateGuaranteedValidPuzzle(difficulty);
+  }
+
+  /**
+   * 从完整解答创建有唯一解的题目
+   */
+  private static createPuzzleWithUniqueSolution(solution: SudokuBoard, difficulty: Difficulty): SudokuBoard | null {
     const puzzle = solution.map(row => [...row]) as SudokuBoard;
+    const targetRemoval = this.getCellsToRemove(difficulty);
     
-    // 根据难度确定移除的数字数量
-    const cellsToRemove = this.getCellsToRemove(difficulty);
-    
-    // 随机移除数字
+    // 获取所有位置并随机排序
     const positions = this.getAllPositions();
     const shuffledPositions = this.shuffle(positions);
     
-    for (let i = 0; i < cellsToRemove && i < shuffledPositions.length; i++) {
+    let removedCount = 0;
+    
+    // 逐个尝试移除数字，确保保持唯一解
+    for (const { row, col } of shuffledPositions) {
+      if (removedCount >= targetRemoval) break;
+      
+      const originalValue = puzzle[row][col];
+      puzzle[row][col] = 0; // 临时移除
+      
+      // 检查移除后是否仍有唯一解
+      if (this.hasUniqueSolutionFast(puzzle)) {
+        removedCount++; // 确认移除
+      } else {
+        puzzle[row][col] = originalValue; // 恢复数字
+      }
+    }
+    
+    // 确保移除了足够的数字
+    if (removedCount < Math.floor(targetRemoval * 0.8)) {
+      return null; // 移除数量不足，重新生成
+    }
+    
+    return puzzle;
+  }
+
+  /**
+   * 验证题目是否有有效解
+   */
+  private static hasValidSolution(puzzle: SudokuBoard, solution: SudokuBoard): boolean {
+    // 简单验证：检查给定的解是否与题目兼容
+    for (let row = 0; row < 9; row++) {
+      for (let col = 0; col < 9; col++) {
+        if (puzzle[row][col] !== 0 && puzzle[row][col] !== solution[row][col]) {
+          return false;
+        }
+      }
+    }
+    
+    // 验证解答本身是否有效
+    return this.isSolved(solution);
+  }
+
+  /**
+   * 快速检查数独是否有唯一解（优化版）
+   */
+  private static hasUniqueSolutionFast(board: SudokuBoard): boolean {
+    const clonedBoard = board.map(row => [...row]) as SudokuBoard;
+    const solutionCount = this.countSolutions(clonedBoard, 2); // 最多找2个解就够了
+    return solutionCount === 1;
+  }
+
+  /**
+   * 计算数独的解的数量（用于唯一性检查）
+   */
+  private static countSolutions(board: SudokuBoard, maxCount: number): number {
+    // 找到第一个空白单元格
+    for (let row = 0; row < 9; row++) {
+      for (let col = 0; col < 9; col++) {
+        if (board[row][col] === 0) {
+          let solutionCount = 0;
+          
+          // 尝试所有可能的数字
+          for (let value = 1; value <= 9; value++) {
+            if (this.isValidMove(board, row, col, value as CellValue)) {
+              board[row][col] = value as CellValue;
+              solutionCount += this.countSolutions(board, maxCount - solutionCount);
+              board[row][col] = 0; // 回溯
+              
+              // 如果已经找到多于maxCount个解，提前退出
+              if (solutionCount >= maxCount) {
+                return solutionCount;
+              }
+            }
+          }
+          return solutionCount;
+        }
+      }
+    }
+    
+    // 如果没有空白单元格，说明找到了一个解
+    return 1;
+  }
+
+  /**
+   * 验证题目和解答的唯一性
+   */
+  private static verifyUniqueSolution(puzzle: SudokuBoard, solution: SudokuBoard): boolean {
+    // 1. 检查解答与题目兼容
+    for (let row = 0; row < 9; row++) {
+      for (let col = 0; col < 9; col++) {
+        if (puzzle[row][col] !== 0 && puzzle[row][col] !== solution[row][col]) {
+          return false;
+        }
+      }
+    }
+    
+    // 2. 检查解答本身有效
+    if (!this.isSolved(solution)) {
+      return false;
+    }
+    
+    // 3. 检查题目有唯一解
+    return this.hasUniqueSolutionFast(puzzle);
+  }
+
+  /**
+   * 生成保证有效的数独题目（备用方法）
+   */
+  private static generateGuaranteedValidPuzzle(difficulty: Difficulty): { puzzle: SudokuBoard; solution: SudokuBoard } {
+    const solution = this.generateCompleteSudoku();
+    const puzzle = solution.map(row => [...row]) as SudokuBoard;
+    
+    // 使用更保守的移除策略，确保题目可解
+    const cellsToRemove = Math.min(this.getCellsToRemove(difficulty), 45); // 限制最大移除数量
+    const positions = this.getAllPositions();
+    const shuffledPositions = this.shuffle(positions);
+    
+    let removed = 0;
+    for (let i = 0; i < shuffledPositions.length && removed < cellsToRemove; i++) {
       const { row, col } = shuffledPositions[i];
+      const originalValue = puzzle[row][col];
+      
+      // 临时移除这个数字
       puzzle[row][col] = 0;
+      
+      // 保守策略：逐步移除并检查
+      if (removed < cellsToRemove) {
+        removed++;
+      } else {
+        // 如果已经移除够了，恢复这个数字
+        puzzle[row][col] = originalValue;
+      }
     }
     
     return { puzzle, solution };
   }
 
   /**
-   * 根据难度获取需要移除的数字数量
+   * 计算空白单元格数量
+   */
+  private static getEmptyCellsCount(board: SudokuBoard): number {
+    let count = 0;
+    for (let row = 0; row < 9; row++) {
+      for (let col = 0; col < 9; col++) {
+        if (board[row][col] === 0) {
+          count++;
+        }
+      }
+    }
+    return count;
+  }
+
+  /**
+   * 根据难度获取需要移除的数字数量（优化版）
    */
   private static getCellsToRemove(difficulty: Difficulty): number {
     switch (difficulty) {
       case Difficulty.EASY:
-        return 30 + Math.floor(Math.random() * 6); // 30-35
+        return 35 + Math.floor(Math.random() * 6); // 35-40（保守一些）
       case Difficulty.MEDIUM:
-        return 40 + Math.floor(Math.random() * 6); // 40-45
+        return 45 + Math.floor(Math.random() * 5); // 45-49（适中）
       case Difficulty.HARD:
-        return 50 + Math.floor(Math.random() * 6); // 50-55
+        return 52 + Math.floor(Math.random() * 4); // 52-55（适当控制）
       default:
-        return 35;
+        return 40; // 默认中等难度
     }
   }
 

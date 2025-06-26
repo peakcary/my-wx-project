@@ -1,13 +1,15 @@
-// 游戏页面容器
+// 游戏页面容器 - 一屏显示设计
 .game-page {
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 16rpx;
-  padding-bottom: calc(40rpx + constant(safe-area-inset-bottom)); // 增加底部空间
-  padding-bottom: calc(40rpx + env(safe-area-inset-bottom)); // 增加底部空间
+  padding: 16rpx 20rpx;
+  padding-bottom: calc(16rpx + constant(safe-area-inset-bottom));
+  padding-bottom: calc(16rpx + env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
-  gap: 16rpx; // 组件间统一间距
+  gap: 16rpx; // 紧凑间距
+  box-sizing: border-box;
   
   &.loading {
     display: flex;
@@ -23,19 +25,31 @@
   font-weight: bold;
 }
 
-// 游戏棋盘区域
+// 游戏棋盘区域 - 紧凑视觉设计
 .game-board {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
+  flex-shrink: 0;
+  padding: 8rpx 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20rpx;
+  backdrop-filter: blur(10px);
+  border: 1rpx solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
 }
 
-// 数字面板容器
+// 数字面板容器 - 底部固定设计
 .number-pad-container {
   width: 100%;
   display: flex;
   justify-content: center;
+  flex-shrink: 0;
+  padding: 8rpx 0;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16rpx;
+  backdrop-filter: blur(8px);
 }
 
 // 暂停遮罩
@@ -55,25 +69,71 @@
 .pause-content {
   background-color: white;
   border-radius: 32rpx;
-  padding: 80rpx 60rpx;
+  padding: 60rpx 50rpx;
   text-align: center;
-  max-width: 560rpx;
+  max-width: 500rpx;
   box-shadow: 0 16rpx 64rpx rgba(0, 0, 0, 0.3);
 }
 
 .pause-title {
-  font-size: 48rpx;
+  font-size: 42rpx;
   font-weight: bold;
   color: #2c3e50;
-  margin-bottom: 24rpx;
+  margin-bottom: 20rpx;
   display: block;
 }
 
 .pause-subtitle {
-  font-size: 32rpx;
+  font-size: 28rpx;
   color: #7f8c8d;
   line-height: 1.4;
+  margin-bottom: 40rpx;
   display: block;
+}
+
+// 暂停弹窗操作按钮
+.pause-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.pause-button {
+  height: 80rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  &.resume {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    box-shadow: 0 8rpx 24rpx rgba(39, 174, 96, 0.3);
+    
+    &:hover {
+      box-shadow: 0 12rpx 32rpx rgba(39, 174, 96, 0.4);
+    }
+  }
+  
+  &.new-game {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    box-shadow: 0 8rpx 24rpx rgba(52, 152, 219, 0.3);
+    
+    &:hover {
+      box-shadow: 0 12rpx 32rpx rgba(52, 152, 219, 0.4);
+    }
+  }
+}
+
+.pause-button-text {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: white;
 }
 
 // 完成庆祝遮罩
@@ -175,6 +235,191 @@
 
 .action-text {
   font-size: 32rpx;
+  font-weight: bold;
+  color: white;
+}
+
+// 检查结果弹窗
+.check-result-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4rpx);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.check-result-content {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 24rpx;
+  padding: 48rpx 36rpx;
+  margin: 48rpx;
+  box-shadow: 0 20rpx 60rpx rgba(0, 0, 0, 0.3);
+  border: 2rpx solid rgba(255, 255, 255, 0.8);
+  max-width: 540rpx;
+  width: 90%;
+  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.check-result-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 24rpx;
+  line-height: 1.4;
+  display: block;
+  
+  &.success {
+    color: #27ae60;
+  }
+  
+  &.info {
+    color: #3498db;
+  }
+}
+
+.check-result-suggestion {
+  font-size: 28rpx;
+  color: #7f8c8d;
+  text-align: center;
+  margin-bottom: 36rpx;
+  line-height: 1.5;
+  padding: 16rpx;
+  background: rgba(52, 152, 219, 0.1);
+  border-radius: 12rpx;
+  border-left: 6rpx solid #3498db;
+  display: block;
+}
+
+.check-result-actions {
+  display: flex;
+  gap: 16rpx;
+  justify-content: center;
+}
+
+.result-button {
+  flex: 1;
+  height: 72rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &.smart {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    box-shadow: 0 8rpx 24rpx rgba(52, 152, 219, 0.4);
+    
+    &:active {
+      transform: scale(0.95);
+      box-shadow: 0 4rpx 12rpx rgba(52, 152, 219, 0.3);
+    }
+  }
+  
+  &.dismiss {
+    background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+    box-shadow: 0 8rpx 24rpx rgba(149, 165, 166, 0.4);
+    
+    &:active {
+      transform: scale(0.95);
+      box-shadow: 0 4rpx 12rpx rgba(149, 165, 166, 0.3);
+    }
+  }
+}
+
+.result-text {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: white;
+}
+
+// 死局警告
+.stuck-warning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 87, 51, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  animation: fadeIn 0.3s ease;
+}
+
+.warning-content {
+  background-color: white;
+  padding: 32rpx;
+  border-radius: 20rpx;
+  margin: 24rpx;
+  text-align: center;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.4s ease-out;
+}
+
+.warning-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #e74c3c;
+  margin-bottom: 12rpx;
+  display: block;
+}
+
+.warning-subtitle {
+  font-size: 28rpx;
+  color: #7f8c8d;
+  margin-bottom: 24rpx;
+  display: block;
+}
+
+.warning-actions {
+  display: flex;
+  gap: 12rpx;
+  justify-content: center;
+}
+
+.warning-button {
+  flex: 1;
+  max-width: 100rpx;
+  height: 64rpx;
+  border-radius: 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &.smart {
+    background-color: #1abc9c;
+    
+    &:hover {
+      background-color: #16a085;
+    }
+  }
+  
+  &.dismiss {
+    background-color: #95a5a6;
+    
+    &:hover {
+      background-color: #7f8c8d;
+    }
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.warning-text {
+  font-size: 24rpx;
   font-weight: bold;
   color: white;
 }

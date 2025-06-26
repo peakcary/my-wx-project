@@ -16,10 +16,16 @@ export default function Index () {
   }
 
   const features = [
-    { icon: '🧩', title: '经典数独', desc: '传统9x9数独谜题' },
-    { icon: '⏱️', title: '计时挑战', desc: '挑战你的解题速度' },
-    { icon: '🎯', title: '多种难度', desc: '从简单到困难级别' },
+    { icon: '🧩', title: '经典数独', desc: '9x9传统数独谜题' },
+    { icon: '⏱️', title: '计时挑战', desc: '挑战解题速度' },
+    { icon: '🎯', title: '多种难度', desc: '简单到困难' },
     { icon: '💡', title: '智能提示', desc: '卡住时获得帮助' }
+  ]
+  
+  const gameRules = [
+    { step: '1', desc: '在9×9网格中填入数字1-9' },
+    { step: '2', desc: '每行、每列不能有重复数字' },
+    { step: '3', desc: '每个3×3宫格内数字不重复' }
   ]
 
   return (
@@ -35,7 +41,7 @@ export default function Index () {
 
       {/* 特色功能 */}
       <View className='features'>
-        <Text className='section-title'>游戏特色</Text>
+        <Text className='section-title'>✨ 游戏特色</Text>
         <View className='feature-grid'>
           {features.map((feature, index) => (
             <View key={index} className='feature-item'>
@@ -47,42 +53,32 @@ export default function Index () {
         </View>
       </View>
 
-      {/* 游戏说明 */}
-      <View className='game-info'>
-        <Text className='section-title'>如何游戏</Text>
-        <View className='info-content'>
-          <View className='info-item'>
-            <Text className='info-number'>1</Text>
-            <Text className='info-text'>在9x9网格中填入数字1-9</Text>
-          </View>
-          <View className='info-item'>
-            <Text className='info-number'>2</Text>
-            <Text className='info-text'>每行、每列、每个3x3宫格内数字不能重复</Text>
-          </View>
-          <View className='info-item'>
-            <Text className='info-number'>3</Text>
-            <Text className='info-text'>根据已有数字推理出正确答案</Text>
-          </View>
+      {/* 游戏规则 */}
+      <View className='game-rules'>
+        <Text className='section-title'>📋 游戏规则</Text>
+        <View className='rules-list'>
+          {gameRules.map((rule, index) => (
+            <View key={index} className='rule-item'>
+              <View className='rule-step'>{rule.step}</View>
+              <Text className='rule-desc'>{rule.desc}</Text>
+            </View>
+          ))}
         </View>
       </View>
 
-      {/* 开始游戏按钮 */}
+      {/* 开始游戏区域 */}
       <View className='start-section'>
         <View className='start-button' onClick={handleStartGame}>
-          <Text className='start-text'>🎮 开始游戏</Text>
+          <Text className='start-text'>🎮 立即开始</Text>
+          <Text className='start-subtitle'>体验智力挑战</Text>
         </View>
         
-        <View className='tip'>
-          <Text className='tip-text'>
-            💡 提示：首次游戏建议从简单难度开始
-          </Text>
+        <View className='achievement'>
+          <Text className='achievement-text'>🏆 挑战自己，成为数独大师</Text>
         </View>
       </View>
 
-      {/* 底部信息 */}
-      <View className='footer'>
-        <Text className='footer-text'>基于 Taro 开发的微信小游戏</Text>
-      </View>
+    
     </View>
   )
 }

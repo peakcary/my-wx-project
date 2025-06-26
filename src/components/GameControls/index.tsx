@@ -20,6 +20,7 @@ interface GameControlsProps {
   onResume: () => void;
   onHint: () => void;
   onCheck: () => void;
+  onSmartHint?: () => void; // 新增智能提示回调
   
   // 时间格式化函数
   formatTime: (seconds: number) => string;
@@ -39,6 +40,7 @@ const GameControls: React.FC<GameControlsProps> = ({
   onResume,
   onHint,
   onCheck,
+  onSmartHint,
   formatTime
 }) => {
   
@@ -143,6 +145,16 @@ const GameControls: React.FC<GameControlsProps> = ({
             onClick={onHint}
           >
             <Text className="button-text">提示</Text>
+          </View>
+        )}
+        
+        {/* 智能提示按钮 */}
+        {isPlaying && !isPaused && !isCompleted && onSmartHint && (
+          <View 
+            className="control-button smart-hint"
+            onClick={onSmartHint}
+          >
+            <Text className="button-text">智能提示</Text>
           </View>
         )}
         

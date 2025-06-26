@@ -182,15 +182,12 @@ export class SudokuValidator {
   static canPlaceValue(board: SudokuBoard, row: number, col: number, value: CellValue): boolean {
     if (value === 0) return true; // 可以清空任何单元格
     
-    // 临时放置该值
-    const originalValue = board[row][col];
-    board[row][col] = value;
+    // 修复副作用问题：创建副本而不是直接修改原棋盘
+    const tempBoard = board.map(boardRow => [...boardRow]) as SudokuBoard;
+    tempBoard[row][col] = value;
     
     // 检验是否有冲突
-    const conflicts = this.validateCell(board, row, col, value);
-    
-    // 恢复原值
-    board[row][col] = originalValue;
+    const conflicts = this.validateCell(tempBoard, row, col, value);
     
     return conflicts.length === 0;
   }

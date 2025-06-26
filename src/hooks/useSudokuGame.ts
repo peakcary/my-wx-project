@@ -105,27 +105,43 @@ export function useSudokuGame() {
       const cell = prevState.board[row][col];
       if (cell.isOriginal) return prevState; // 不能修改原始数字
       
-      // 创建临时棋盘用于验证
-      const tempBoard: SudokuBoard = prevState.board.map(boardRow =>
-        boardRow.map(cell => cell.value)
-      );
-      
       const newBoard = prevState.board.map((boardRow, r) =>
         boardRow.map((cell, c) => {
           if (r === row && c === col) {
             const newCell = { ...cell, value };
             
-            // 检查是否有错误
+            // 检查是否有错误：只检查数独规则冲突
             if (value !== 0) {
+              // 创建临时棋盘用于验证当前位置
+              const tempBoard: SudokuBoard = prevState.board.map(boardRow => boardRow.map(cell => cell.value));
               tempBoard[r][c] = value;
-              const hasError = !SudokuValidator.canPlaceValue(tempBoard, r, c, value);
-              newCell.hasError = hasError;
+              const hasRuleError = !SudokuGenerator.isValidMove(tempBoard, r, c, value);
+              newCell.hasError = hasRuleError;
             } else {
               newCell.hasError = false;
             }
             
             return newCell;
           }
+          
+          // 检查其他单元格是否因为新放置的数字而产生冲突
+          if (value !== 0 && cell.value !== 0) {
+            const isRelated = r === row || c === col || 
+              (Math.floor(r / 3) === Math.floor(row / 3) && Math.floor(c / 3) === Math.floor(col / 3));
+            
+            if (isRelated && cell.value === value) {
+              return { ...cell, hasError: true };
+            }
+          }
+          
+          // 清除之前的错误高亮（如果这次放置没有冲突）
+          if (cell.hasError && cell.value !== 0) {
+            const cellCheckBoard: SudokuBoard = prevState.board.map(boardRow => boardRow.map(cellItem => cellItem.value));
+            cellCheckBoard[r][c] = cell.value;
+            const stillHasError = !SudokuGenerator.isValidMove(cellCheckBoard, r, c, cell.value);
+            return { ...cell, hasError: stillHasError };
+          }
+          
           return cell;
         })
       );
@@ -134,10 +150,17 @@ export function useSudokuGame() {
       const currentBoard: SudokuBoard = newBoard.map(row => row.map(cell => cell.value));
       const isCompleted = SudokuValidator.isSolved(currentBoard);
       
-      // 如果放置了错误的数字，增加错误计数
+      // 修复错误检测逻辑：先检查数独规则，再检查是否为最终答案
       let newMistakes = prevState.mistakes;
-      if (value !== 0 && value !== prevState.solution[row][col]) {
-        newMistakes += 1;
+      if (value !== 0) {
+        // 创建新的临时棋盘来检查错误
+        const checkBoard: SudokuBoard = newBoard.map(boardRow => boardRow.map(cell => cell.value));
+        const hasRuleError = !SudokuGenerator.isValidMove(checkBoard, row, col, value);
+        
+        // 只有违反数独规则才算真正的错误，不是最终答案但符合规则不算错误
+        if (hasRuleError) {
+          newMistakes += 1;
+        }
       }
       
       const newState = {
@@ -161,6 +184,37 @@ export function useSudokuGame() {
   const clearCell = useCallback((row: number, col: number) => {
     setCellValue(row, col, 0);
   }, [setCellValue]);
+
+  // 清空整个棋盘（保留题目原始数字）
+  const clearBoard = useCallback(() => {
+    setGameState(prevState => {
+      if (!prevState || prevState.isCompleted) return prevState;
+      
+      const newBoard = prevState.board.map(boardRow =>
+        boardRow.map(cell => {
+          if (cell.isOriginal) {
+            // 保留原始数字，但清除错误状态
+            return { ...cell, hasError: false };
+          } else {
+            // 清空用户填入的数字
+            return { 
+              ...cell, 
+              value: 0 as CellValue, 
+              hasError: false,
+              candidates: []
+            };
+          }
+        })
+      );
+      
+      return {
+        ...prevState,
+        board: newBoard,
+        selectedCell: null, // 清除选中状态
+        mistakes: 0 // 重置错误次数
+      };
+    });
+  }, []);
 
   // 获取提示
   const useHint = useCallback(() => {
@@ -284,6 +338,68 @@ export function useSudokuGame() {
     return SudokuGenerator.getPossibleValues(currentBoard, row, col);
   }, [gameState]);
 
+  // 检查游戏是否陷入死局（增强版）
+  const checkIfStuck = useCallback((): boolean => {
+    if (!gameState) return false;
+    
+    const currentBoard: SudokuBoard = gameState.board.map(row => row.map(cell => cell.value));
+    
+    // 1. 基础检查：是否有空白单元格没有可能值
+    let hasEmptyWithNoPossible = false;
+    let totalEmptyCells = 0;
+    
+    for (let row = 0; row < 9; row++) {
+      for (let col = 0; col < 9; col++) {
+        if (currentBoard[row][col] === 0) {
+          totalEmptyCells++;
+          const possibleValues = SudokuGenerator.getPossibleValues(currentBoard, row, col);
+          if (possibleValues.length === 0) {
+            hasEmptyWithNoPossible = true;
+          } else if (possibleValues.length > 0) {
+            // 还有可能的步骤，进行更深入的检查
+            return false;
+          }
+        }
+      }
+    }
+    
+    // 2. 如果有空白格但都没有可能值，明确死局
+    if (totalEmptyCells > 0 && hasEmptyWithNoPossible) {
+      return true;
+    }
+    
+    // 3. 如果没有空白格，检查是否有冲突
+    if (totalEmptyCells === 0) {
+      const validation = SudokuValidator.validateBoard(currentBoard);
+      return !validation.isValid; // 如果有冲突且没有空白格，说明陷入死局
+    }
+    
+    return false; // 没有发现死局迹象
+  }, [gameState]);
+
+  // 获取最容易填入的单元格（新增功能）
+  const getEasiestCell = useCallback((): { row: number; col: number; possibleValues: CellValue[] } | null => {
+    if (!gameState) return null;
+    
+    const currentBoard: SudokuBoard = gameState.board.map(row => row.map(cell => cell.value));
+    let easiestCell: { row: number; col: number; possibleValues: CellValue[] } | null = null;
+    let minPossibleValues = 10;
+    
+    for (let row = 0; row < 9; row++) {
+      for (let col = 0; col < 9; col++) {
+        if (currentBoard[row][col] === 0) {
+          const possibleValues = SudokuGenerator.getPossibleValues(currentBoard, row, col);
+          if (possibleValues.length > 0 && possibleValues.length < minPossibleValues) {
+            easiestCell = { row, col, possibleValues };
+            minPossibleValues = possibleValues.length;
+          }
+        }
+      }
+    }
+    
+    return easiestCell;
+  }, [gameState]);
+
   // 清理计时器
   useEffect(() => {
     return () => {
@@ -309,6 +425,7 @@ export function useSudokuGame() {
     selectCell,
     setCellValue,
     clearCell,
+    clearBoard, // 新增：清空整个棋盘
     useHint,
     pauseGame,
     resumeGame,
@@ -318,6 +435,10 @@ export function useSudokuGame() {
     checkSolution,
     getCompletionPercentage,
     getPossibleValues,
-    formatTime
+    formatTime,
+    
+    // 新增的调试和帮助功能
+    checkIfStuck,
+    getEasiestCell
   };
-} 
+}
