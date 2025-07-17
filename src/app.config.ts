@@ -1,12 +1,13 @@
 export default defineAppConfig({
   pages: [
     'pages/index/index',
-    'pages/game/game'
+    'pages/game/game',
+    'pages/game24/game24'
   ],
   window: {
     backgroundTextStyle: 'light',
     navigationBarBackgroundColor: '#2c3e50',
-    navigationBarTitleText: '数独小游戏',
+    navigationBarTitleText: '智力游戏大全',
     navigationBarTextStyle: 'white',
     backgroundColor: '#34495e'
   },
