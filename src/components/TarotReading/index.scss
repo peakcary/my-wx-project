@@ -1,0 +1,676 @@
+@import '../../app.scss';
+
+.tarot-reading {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2d1b69 0%, #11998e 50%, #38ef7d 100%);
+  display: flex;
+  flex-direction: column;
+
+  .reading-content {
+    flex: 1;
+    padding: 24rpx;
+    padding-left: max(32rpx, env(safe-area-inset-left, 32rpx));
+    padding-right: max(48rpx, env(safe-area-inset-right, 48rpx));
+    padding-top: 0;
+    overflow-y: auto;
+    min-height: 0;
+    
+    // 确保所有直接子元素都有适当的间距
+    > .reading-header,
+    > .cards-section,
+    > .interpretation-section {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .reading-header {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 24rpx;
+      padding: 32rpx;
+      text-align: center;
+      margin-bottom: 24rpx;
+      // backdrop-filter: blur(20rpx); // 微信小程序不支持
+      box-shadow: 0 12rpx 32rpx rgba(45, 27, 105, 0.2);
+      border: 2rpx solid rgba(255, 255, 255, 0.3);
+
+      .divination-info {
+        margin-bottom: 16rpx;
+
+        .divination-icon {
+          font-size: 64rpx;
+          margin-bottom: 8rpx;
+          display: block;
+        }
+
+        .divination-name {
+          font-size: 32rpx;
+          font-weight: bold;
+          color: #2d3748;
+          display: block;
+        }
+      }
+
+      .spread-info {
+        .spread-name {
+          font-size: 24rpx;
+          color: #4a5568;
+          margin-bottom: 4rpx;
+          display: block;
+        }
+
+        .reading-time {
+          font-size: 20rpx;
+          color: #718096;
+          display: block;
+        }
+      }
+    }
+
+    .question-section {
+      margin-bottom: 24rpx;
+
+      .question-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20rpx;
+        padding: 24rpx;
+        // backdrop-filter: blur(20rpx); // 微信小程序不支持
+        box-shadow: 0 8rpx 24rpx rgba(45, 27, 105, 0.15);
+        border: 2rpx solid rgba(255, 255, 255, 0.2);
+
+        .question-label {
+          font-size: 22rpx;
+          font-weight: bold;
+          color: #2d3748;
+          margin-bottom: 12rpx;
+          display: block;
+        }
+
+        .question-text {
+          font-size: 24rpx;
+          color: #4a5568;
+          line-height: 1.6;
+          text-align: center;
+          font-style: italic;
+          display: block;
+        }
+      }
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 20rpx;
+
+      .section-title {
+        font-size: 28rpx;
+        font-weight: bold;
+        color: #ffffff;
+        text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
+        display: block;
+      }
+    }
+
+    .cards-section {
+      margin-bottom: 32rpx;
+
+      .cards-spread {
+        .card-item {
+          background: rgba(255, 255, 255, 0.95);
+          border-radius: 20rpx;
+          padding: 24rpx;
+          margin-bottom: 20rpx;
+          // backdrop-filter: blur(20rpx); // 微信小程序不支持
+          box-shadow: 0 8rpx 24rpx rgba(45, 27, 105, 0.15);
+          border: 2rpx solid rgba(255, 255, 255, 0.2);
+
+          .card-position {
+            text-align: center;
+            margin-bottom: 16rpx;
+            padding-bottom: 16rpx;
+            border-bottom: 1rpx solid rgba(45, 27, 105, 0.1);
+
+            .position-name {
+              font-size: 24rpx;
+              font-weight: bold;
+              color: #2d1b69;
+              margin-bottom: 4rpx;
+              display: block;
+            }
+
+            .position-meaning {
+              font-size: 18rpx;
+              color: #718096;
+              display: block;
+            }
+          }
+
+          .tarot-card {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20rpx;
+            padding: 16rpx;
+            background: linear-gradient(135deg, rgba(45, 27, 105, 0.1), rgba(17, 153, 142, 0.1));
+            border-radius: 16rpx;
+
+            &.reversed {
+              .card-image {
+                transform: rotate(180deg);
+              }
+            }
+
+            .card-image {
+              font-size: 48rpx;
+              margin-right: 16rpx;
+              display: block;
+            }
+
+            .card-info {
+              flex: 1;
+
+              .card-name {
+                font-size: 26rpx;
+                font-weight: bold;
+                color: #2d3748;
+                margin-bottom: 8rpx;
+                display: block;
+              }
+
+              .card-keywords {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8rpx;
+
+                .keyword {
+                  background: linear-gradient(135deg, #2d1b69, #11998e);
+                  color: #ffffff;
+                  padding: 4rpx 12rpx;
+                  border-radius: 12rpx;
+                  font-size: 16rpx;
+                  display: block;
+                }
+              }
+            }
+          }
+
+          .card-meaning {
+            .meaning-title {
+              font-size: 22rpx;
+              font-weight: bold;
+              color: #2d3748;
+              margin-bottom: 12rpx;
+              display: block;
+            }
+
+            .meaning-general {
+              font-size: 22rpx;
+              color: #4a5568;
+              line-height: 1.6;
+              margin-bottom: 16rpx;
+              display: block;
+            }
+
+            .meaning-details {
+              .detail-item {
+                margin-bottom: 12rpx;
+
+                .detail-label {
+                  font-size: 20rpx;
+                  font-weight: bold;
+                  color: #2d1b69;
+                  margin-bottom: 4rpx;
+                  display: block;
+                }
+
+                .detail-text {
+                  font-size: 20rpx;
+                  color: #4a5568;
+                  line-height: 1.5;
+                  display: block;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .interpretation-section,
+    .advice-section {
+      margin-bottom: 32rpx;
+
+      .interpretation-content,
+      .advice-content {
+        .interpretation-card,
+        .advice-card {
+          background: rgba(255, 255, 255, 0.95);
+          border-radius: 20rpx;
+          padding: 32rpx 24rpx;
+          text-align: center;
+          // backdrop-filter: blur(20rpx); // 微信小程序不支持
+          box-shadow: 0 8rpx 24rpx rgba(45, 27, 105, 0.15);
+          border: 2rpx solid rgba(255, 255, 255, 0.2);
+          margin-bottom: 16rpx;
+
+          .interpretation-text,
+          .advice-text {
+            font-size: 24rpx;
+            color: #2d3748;
+            line-height: 1.7;
+            display: block;
+            font-weight: 500;
+          }
+        }
+
+        .energy-info,
+        .timeframe-info {
+          background: rgba(255, 255, 255, 0.8);
+          border-radius: 16rpx;
+          padding: 16rpx 20rpx;
+          margin-bottom: 12rpx;
+          text-align: center;
+
+          .energy-label,
+          .timeframe-label {
+            font-size: 18rpx;
+            color: #718096;
+            margin-bottom: 4rpx;
+            display: block;
+          }
+
+          .energy-text,
+          .timeframe-text {
+            font-size: 20rpx;
+            color: #2d1b69;
+            font-weight: bold;
+            display: block;
+          }
+        }
+      }
+    }
+
+    .lucky-section {
+      margin-bottom: 32rpx;
+
+      .lucky-content {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20rpx;
+        padding: 24rpx;
+        // backdrop-filter: blur(20rpx); // 微信小程序不支持
+        box-shadow: 0 8rpx 24rpx rgba(45, 27, 105, 0.15);
+        border: 2rpx solid rgba(255, 255, 255, 0.2);
+
+        .lucky-numbers,
+        .lucky-colors {
+          margin-bottom: 20rpx;
+
+          .lucky-label {
+            font-size: 22rpx;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 12rpx;
+            display: block;
+          }
+
+          .numbers-grid,
+          .colors-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12rpx;
+
+            .number-item,
+            .color-item {
+              background: linear-gradient(135deg, #11998e, #38ef7d);
+              color: #ffffff;
+              padding: 8rpx 16rpx;
+              border-radius: 20rpx;
+              text-align: center;
+
+              .number-text,
+              .color-text {
+                font-size: 18rpx;
+                font-weight: bold;
+                display: block;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .warnings-section {
+      margin-bottom: 32rpx;
+
+      .warnings-content {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20rpx;
+        padding: 24rpx;
+        // backdrop-filter: blur(20rpx); // 微信小程序不支持
+        box-shadow: 0 8rpx 24rpx rgba(245, 101, 101, 0.15);
+        border: 2rpx solid rgba(245, 101, 101, 0.2);
+
+        .warning-item {
+          .warning-text {
+            font-size: 20rpx;
+            color: #c53030;
+            line-height: 1.6;
+            margin-bottom: 8rpx;
+            display: block;
+          }
+        }
+      }
+    }
+
+    .story-section {
+      margin-bottom: 48rpx;
+
+      .story-content {
+        .story-item {
+          background: rgba(255, 255, 255, 0.95);
+          border-radius: 20rpx;
+          padding: 24rpx;
+          margin-bottom: 16rpx;
+          // backdrop-filter: blur(20rpx); // 微信小程序不支持
+          box-shadow: 0 8rpx 24rpx rgba(45, 27, 105, 0.15);
+          border: 2rpx solid rgba(255, 255, 255, 0.2);
+
+          .story-title {
+            font-size: 24rpx;
+            font-weight: bold;
+            color: #2d1b69;
+            margin-bottom: 12rpx;
+            display: block;
+          }
+
+          .story-text {
+            font-size: 20rpx;
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 12rpx;
+            display: block;
+          }
+
+          .symbolism-text {
+            font-size: 18rpx;
+            color: #718096;
+            line-height: 1.5;
+            display: block;
+
+            .symbolism-label {
+              font-weight: bold;
+              color: #2d1b69;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .reading-footer {
+    flex-shrink: 0;
+    padding: 24rpx 32rpx;
+    padding-left: max(32rpx, env(safe-area-inset-left, 32rpx));
+    padding-right: max(32rpx, env(safe-area-inset-right, 32rpx));
+    padding-bottom: env(safe-area-inset-bottom, 32rpx);
+    background: rgba(45, 27, 105, 0.1);
+    // backdrop-filter: blur(10rpx); // 微信小程序不支持
+
+    .back-button {
+      background: linear-gradient(135deg, #2d1b69, #11998e);
+      border-radius: 16rpx;
+      padding: 20rpx;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 6rpx 20rpx rgba(45, 27, 105, 0.3);
+
+      &:active {
+        transform: translateY(2rpx);
+        box-shadow: 0 3rpx 10rpx rgba(45, 27, 105, 0.3);
+      }
+
+      .button-text {
+        font-size: 28rpx;
+        font-weight: bold;
+        color: #ffffff;
+        text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+}
+
+// 响应式适配
+@media (max-width: 600rpx) {
+  .tarot-reading {
+    .reading-content {
+      padding: 20rpx;
+      padding-left: max(24rpx, env(safe-area-inset-left, 24rpx));
+      padding-right: max(40rpx, env(safe-area-inset-right, 40rpx));
+      padding-top: 0;
+      overflow-y: auto;
+      
+      // 移动端也确保子元素间距正确
+      > .reading-header,
+      > .cards-section,
+      > .interpretation-section {
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .reading-header {
+        padding: 24rpx;
+        margin-bottom: 20rpx;
+
+        .divination-info {
+          margin-bottom: 12rpx;
+
+          .divination-icon {
+            font-size: 48rpx;
+            margin-bottom: 6rpx;
+          }
+
+          .divination-name {
+            font-size: 28rpx;
+          }
+        }
+
+        .spread-info {
+          .spread-name {
+            font-size: 20rpx;
+            margin-bottom: 2rpx;
+          }
+
+          .reading-time {
+            font-size: 18rpx;
+          }
+        }
+      }
+
+      .question-section {
+        margin-bottom: 20rpx;
+
+        .question-card {
+          padding: 20rpx;
+
+          .question-label {
+            font-size: 20rpx;
+            margin-bottom: 10rpx;
+          }
+
+          .question-text {
+            font-size: 20rpx;
+          }
+        }
+      }
+
+      .section-header {
+        margin-bottom: 16rpx;
+
+        .section-title {
+          font-size: 24rpx;
+        }
+      }
+
+      .cards-section {
+        margin-bottom: 24rpx;
+
+        .cards-spread {
+          .card-item {
+            padding: 20rpx;
+            margin-bottom: 16rpx;
+
+            .card-position {
+              margin-bottom: 12rpx;
+              padding-bottom: 12rpx;
+
+              .position-name {
+                font-size: 20rpx;
+                margin-bottom: 2rpx;
+              }
+
+              .position-meaning {
+                font-size: 16rpx;
+              }
+            }
+
+            .tarot-card {
+              margin-bottom: 16rpx;
+              padding: 12rpx;
+
+              .card-image {
+                font-size: 40rpx;
+                margin-right: 12rpx;
+              }
+
+              .card-info {
+                .card-name {
+                  font-size: 22rpx;
+                  margin-bottom: 6rpx;
+                }
+
+                .card-keywords {
+                  gap: 6rpx;
+
+                  .keyword {
+                    padding: 2rpx 8rpx;
+                    font-size: 14rpx;
+                  }
+                }
+              }
+            }
+
+            .card-meaning {
+              .meaning-title {
+                font-size: 20rpx;
+                margin-bottom: 10rpx;
+              }
+
+              .meaning-general {
+                font-size: 20rpx;
+                margin-bottom: 12rpx;
+              }
+
+              .meaning-details {
+                .detail-item {
+                  margin-bottom: 10rpx;
+
+                  .detail-label {
+                    font-size: 18rpx;
+                    margin-bottom: 2rpx;
+                  }
+
+                  .detail-text {
+                    font-size: 18rpx;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .interpretation-section,
+      .advice-section {
+        margin-bottom: 24rpx;
+
+        .interpretation-content,
+        .advice-content {
+          .interpretation-card,
+          .advice-card {
+            padding: 24rpx 20rpx;
+            margin-bottom: 12rpx;
+
+            .interpretation-text,
+            .advice-text {
+              font-size: 20rpx;
+            }
+          }
+
+          .energy-info,
+          .timeframe-info {
+            padding: 12rpx 16rpx;
+            margin-bottom: 8rpx;
+
+            .energy-label,
+            .timeframe-label {
+              font-size: 16rpx;
+              margin-bottom: 2rpx;
+            }
+
+            .energy-text,
+            .timeframe-text {
+              font-size: 18rpx;
+            }
+          }
+        }
+      }
+
+      .lucky-section,
+      .warnings-section {
+        margin-bottom: 24rpx;
+      }
+      
+      .story-section {
+        margin-bottom: 40rpx;
+
+        .lucky-content,
+        .warnings-content,
+        .story-content {
+          padding: 20rpx;
+
+          .story-item {
+            padding: 20rpx;
+            margin-bottom: 12rpx;
+
+            .story-title {
+              font-size: 20rpx;
+              margin-bottom: 10rpx;
+            }
+
+            .story-text {
+              font-size: 18rpx;
+              margin-bottom: 10rpx;
+            }
+
+            .symbolism-text {
+              font-size: 16rpx;
+            }
+          }
+        }
+      }
+    }
+
+    .reading-footer {
+      padding: 16rpx 24rpx;
+      padding-left: max(24rpx, env(safe-area-inset-left, 24rpx));
+      padding-right: max(24rpx, env(safe-area-inset-right, 24rpx));
+      padding-bottom: env(safe-area-inset-bottom, 24rpx);
+
+      .back-button {
+        padding: 16rpx;
+
+        .button-text {
+          font-size: 24rpx;
+        }
+      }
+    }
+  }
+}

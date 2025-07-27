@@ -2,7 +2,10 @@ export default defineAppConfig({
   pages: [
     'pages/index/index',
     'pages/game/game',
-    'pages/game24/game24'
+    'pages/game24/game24',
+    'pages/constellation/constellation',
+    'pages/bloodtype/bloodtype',
+    'pages/tarot/tarot'
   ],
   window: {
     backgroundTextStyle: 'light',

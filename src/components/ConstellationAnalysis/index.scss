@@ -1,0 +1,652 @@
+@import '../../app.scss';
+
+.constellation-analysis {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  display: flex;
+  flex-direction: column;
+  
+  .analysis-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.95);
+    // backdrop-filter: blur(20rpx); // 微信小程序不支持
+    border-radius: 0 0 32rpx 32rpx;
+    box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
+    
+    .header-background {
+      padding: 32rpx;
+      padding-left: max(32rpx, env(safe-area-inset-left, 32rpx));
+      padding-right: max(32rpx, env(safe-area-inset-right, 32rpx));
+      position: relative;
+      
+      .constellation-info {
+        display: flex;
+        align-items: center;
+        gap: 24rpx;
+        
+        .constellation-icon {
+          font-size: 80rpx;
+          background: linear-gradient(135deg, #6c63ff, #ff6b6b);
+          border-radius: 50%;
+          width: 120rpx;
+          height: 120rpx;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 8rpx 24rpx rgba(108, 99, 255, 0.3);
+        }
+        
+        .constellation-text {
+          flex: 1;
+          
+          .constellation-name {
+            font-size: 40rpx;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 8rpx;
+            display: block;
+          }
+          
+          .constellation-english {
+            font-size: 24rpx;
+            color: #718096;
+            margin-bottom: 8rpx;
+            display: block;
+          }
+          
+          .constellation-date {
+            font-size: 24rpx;
+            color: #6c63ff;
+            font-weight: 600;
+            margin-bottom: 4rpx;
+            display: block;
+          }
+          
+          .constellation-element {
+            font-size: 20rpx;
+            color: #a0aec0;
+            display: block;
+          }
+        }
+      }
+      
+      .back-button {
+        position: absolute;
+        top: 32rpx;
+        right: max(32rpx, env(safe-area-inset-right, 32rpx));
+        background: linear-gradient(135deg, #6c63ff, #ff6b6b);
+        border-radius: 24rpx;
+        padding: 12rpx 24rpx;
+        cursor: pointer;
+        z-index: 10;
+        
+        .back-text {
+          color: #ffffff;
+          font-size: 24rpx;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+  
+  .analysis-content {
+    flex: 1;
+    padding: 32rpx;
+    padding-left: max(32rpx, env(safe-area-inset-left, 32rpx));
+    padding-right: max(48rpx, env(safe-area-inset-right, 48rpx));
+    padding-top: 0;
+    overflow-y: auto;
+    min-height: 0;
+    
+    // 确保所有直接子元素都有适当的间距
+    > .analysis-section {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    
+    .analysis-section {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 24rpx;
+      margin-bottom: 32rpx;
+      overflow: hidden;
+      box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
+      // backdrop-filter: blur(20rpx); // 微信小程序不支持
+      
+      .section-header {
+        background: linear-gradient(135deg, #6c63ff, #ff6b6b);
+        padding: 24rpx 32rpx;
+        
+        .section-title {
+          font-size: 32rpx;
+          font-weight: bold;
+          color: #ffffff;
+          text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.2);
+          display: block;
+        }
+        
+        .section-subtitle {
+          font-size: 20rpx;
+          color: rgba(255, 255, 255, 0.8);
+          margin-top: 4rpx;
+          display: block;
+        }
+      }
+    }
+    
+    // 性格特征样式
+    .personality {
+      .personality-content {
+        padding: 32rpx;
+        
+        .personality-description {
+          font-size: 26rpx;
+          line-height: 1.8;
+          color: #4a5568;
+          margin-bottom: 32rpx;
+          display: block;
+          padding: 20rpx;
+          background: rgba(108, 99, 255, 0.05);
+          border-radius: 16rpx;
+          border-left: 4rpx solid #6c63ff;
+        }
+        
+        .traits-container {
+          display: flex;
+          flex-direction: column;
+          gap: 24rpx;
+          margin-bottom: 32rpx;
+          
+          .traits-group {
+            .traits-title {
+              font-size: 24rpx;
+              font-weight: 600;
+              margin-bottom: 16rpx;
+              display: block;
+            }
+            
+            .traits-list {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 12rpx;
+              
+              .trait-tag {
+                padding: 8rpx 16rpx;
+                border-radius: 20rpx;
+                font-size: 20rpx;
+                font-weight: 500;
+                
+                &.positive {
+                  background: linear-gradient(135deg, #48bb78, #38a169);
+                  color: #ffffff;
+                }
+                
+                &.negative {
+                  background: linear-gradient(135deg, #f56565, #e53e3e);
+                  color: #ffffff;
+                }
+              }
+            }
+            
+            &.positive .traits-title {
+              color: #38a169;
+            }
+            
+            &.negative .traits-title {
+              color: #e53e3e;
+            }
+          }
+        }
+        
+        .keywords {
+          .keywords-title {
+            font-size: 24rpx;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 16rpx;
+            display: block;
+          }
+          
+          .keywords-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12rpx;
+            
+            .keyword-tag {
+              padding: 8rpx 16rpx;
+              background: linear-gradient(135deg, #6c63ff, #764ba2);
+              color: #ffffff;
+              border-radius: 20rpx;
+              font-size: 20rpx;
+              font-weight: 500;
+            }
+          }
+        }
+      }
+    }
+    
+    // 今日运势样式
+    .fortune {
+      .fortune-grid {
+        padding: 32rpx;
+        display: flex;
+        flex-direction: column;
+        gap: 24rpx;
+        
+        .fortune-card {
+          background: linear-gradient(135deg, rgba(108, 99, 255, 0.05), rgba(255, 107, 107, 0.05));
+          border-radius: 16rpx;
+          padding: 24rpx;
+          border: 2rpx solid rgba(108, 99, 255, 0.1);
+          
+          .fortune-header {
+            display: flex;
+            align-items: center;
+            gap: 12rpx;
+            margin-bottom: 16rpx;
+            
+            .fortune-icon {
+              font-size: 32rpx;
+            }
+            
+            .fortune-name {
+              font-size: 28rpx;
+              font-weight: 600;
+              color: #2d3748;
+            }
+          }
+          
+          .fortune-score {
+            margin-bottom: 16rpx;
+            
+            .star {
+              font-size: 24rpx;
+              color: #e2e8f0;
+              margin-right: 4rpx;
+              
+              &.filled {
+                color: #ffd700;
+              }
+            }
+          }
+          
+          .fortune-description {
+            font-size: 24rpx;
+            color: #4a5568;
+            margin-bottom: 16rpx;
+            line-height: 1.6;
+            display: block;
+          }
+          
+          .fortune-advice {
+            font-size: 22rpx;
+            color: #718096;
+            margin-bottom: 20rpx;
+            line-height: 1.5;
+            display: block;
+            padding: 12rpx 16rpx;
+            background: rgba(113, 128, 150, 0.1);
+            border-radius: 12rpx;
+            border-left: 3rpx solid #718096;
+          }
+          
+          .fortune-extra {
+            display: flex;
+            gap: 16rpx;
+            
+            .extra-item {
+              font-size: 20rpx;
+              color: #6c63ff;
+              background: rgba(108, 99, 255, 0.1);
+              padding: 4rpx 12rpx;
+              border-radius: 12rpx;
+              font-weight: 500;
+            }
+          }
+        }
+      }
+    }
+    
+    // 星座配对样式
+    .compatibility {
+      .compatibility-content {
+        padding: 32rpx;
+        
+        .matches-group {
+          margin-bottom: 32rpx;
+          
+          &:last-child {
+            margin-bottom: 0;
+          }
+          
+          .matches-title {
+            font-size: 28rpx;
+            font-weight: 600;
+            margin-bottom: 20rpx;
+            display: block;
+          }
+          
+          .match-item {
+            background: rgba(108, 99, 255, 0.05);
+            border-radius: 12rpx;
+            padding: 20rpx;
+            margin-bottom: 16rpx;
+            border-left: 4rpx solid #6c63ff;
+            
+            .match-header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 12rpx;
+              
+              .match-name {
+                font-size: 26rpx;
+                font-weight: 600;
+                color: #2d3748;
+              }
+            }
+            
+            .match-description {
+              font-size: 22rpx;
+              color: #4a5568;
+              line-height: 1.4;
+              display: block;
+            }
+          }
+          
+          &.best .matches-title {
+            color: #38a169;
+          }
+          
+          &.challenging .matches-title {
+            color: #e53e3e;
+          }
+          
+          &.challenging .match-item {
+            border-left-color: #e53e3e;
+            background: rgba(229, 62, 62, 0.05);
+          }
+        }
+        
+        .match-score {
+          display: flex;
+          align-items: center;
+          gap: 12rpx;
+          
+          .score-bg {
+            width: 80rpx;
+            height: 8rpx;
+            background: #e2e8f0;
+            border-radius: 4rpx;
+            overflow: hidden;
+            
+            .score-fill {
+              height: 100%;
+              background: linear-gradient(90deg, #6c63ff, #ff6b6b);
+              border-radius: 4rpx;
+              transition: width 0.3s ease;
+            }
+          }
+          
+          .score-text {
+            font-size: 20rpx;
+            color: #6c63ff;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+    
+    // 优势与劣势样式
+    .strengths-weaknesses {
+      .sw-content {
+        padding: 32rpx;
+        
+        .sw-group {
+          margin-bottom: 32rpx;
+          
+          &:last-child {
+            margin-bottom: 0;
+          }
+          
+          .sw-title {
+            font-size: 28rpx;
+            font-weight: 600;
+            margin-bottom: 20rpx;
+            display: block;
+          }
+          
+          .sw-list {
+            .sw-item {
+              display: flex;
+              align-items: flex-start;
+              gap: 12rpx;
+              margin-bottom: 12rpx;
+              
+              .sw-bullet {
+                font-size: 24rpx;
+                color: #6c63ff;
+                font-weight: bold;
+                line-height: 1.2;
+              }
+              
+              .sw-text {
+                font-size: 24rpx;
+                color: #4a5568;
+                line-height: 1.4;
+                flex: 1;
+              }
+            }
+          }
+          
+          &.strengths .sw-title {
+            color: #38a169;
+          }
+          
+          &.weaknesses .sw-title {
+            color: #e53e3e;
+          }
+        }
+      }
+    }
+    
+    // 人生建议样式
+    .life-advice {
+      .advice-content {
+        padding: 32rpx;
+        
+        .advice-text {
+          font-size: 24rpx;
+          line-height: 1.8;
+          color: #2d3748;
+          margin-bottom: 24rpx;
+          display: block;
+          padding: 20rpx;
+          background: rgba(45, 55, 72, 0.05);
+          border-radius: 16rpx;
+        }
+        
+        .personalized-advice {
+          background: linear-gradient(135deg, rgba(108, 99, 255, 0.1), rgba(255, 107, 107, 0.1));
+          border-radius: 16rpx;
+          padding: 24rpx;
+          border-left: 4rpx solid #6c63ff;
+          
+          .advice-label {
+            font-size: 24rpx;
+            font-weight: 600;
+            color: #6c63ff;
+            margin-bottom: 12rpx;
+            display: block;
+          }
+          
+          .advice-text {
+            margin-bottom: 0;
+            color: #4a5568;
+          }
+        }
+      }
+    }
+    
+    // 底部操作样式
+    .analysis-actions {
+      display: flex;
+      gap: 16rpx;
+      margin-top: 32rpx;
+      margin-bottom: 48rpx;
+      padding-bottom: env(safe-area-inset-bottom, 0);
+      
+      .action-button {
+        flex: 1;
+        padding: 24rpx;
+        border-radius: 16rpx;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        
+        .action-text {
+          font-size: 28rpx;
+          font-weight: 600;
+        }
+        
+        &.primary {
+          background: linear-gradient(135deg, #6c63ff, #ff6b6b);
+          box-shadow: 0 8rpx 24rpx rgba(108, 99, 255, 0.3);
+          
+          .action-text {
+            color: #ffffff;
+          }
+          
+          &:active {
+            transform: translateY(2rpx);
+            box-shadow: 0 4rpx 12rpx rgba(108, 99, 255, 0.3);
+          }
+        }
+        
+        &.secondary {
+          background: rgba(255, 255, 255, 0.8);
+          border: 2rpx solid #6c63ff;
+          // backdrop-filter: blur(10rpx); // 微信小程序不支持
+          
+          .action-text {
+            color: #6c63ff;
+          }
+          
+          &:active {
+            background: rgba(108, 99, 255, 0.1);
+          }
+        }
+      }
+    }
+  }
+}
+
+// 响应式适配
+@media (max-width: 600rpx) {
+  .constellation-analysis {
+    .analysis-header {
+      .header-background {
+        padding: 24rpx;
+        padding-left: max(24rpx, env(safe-area-inset-left, 24rpx));
+        padding-right: max(24rpx, env(safe-area-inset-right, 24rpx));
+        
+        .constellation-info {
+          gap: 16rpx;
+          
+          .constellation-icon {
+            font-size: 64rpx;
+            width: 96rpx;
+            height: 96rpx;
+          }
+          
+          .constellation-text {
+            .constellation-name {
+              font-size: 32rpx;
+            }
+            
+            .constellation-english {
+              font-size: 20rpx;
+            }
+            
+            .constellation-date {
+              font-size: 20rpx;
+            }
+            
+            .constellation-element {
+              font-size: 18rpx;
+            }
+          }
+        }
+        
+        .back-button {
+          padding: 8rpx 16rpx;
+          right: max(24rpx, env(safe-area-inset-right, 24rpx));
+          
+          .back-text {
+            font-size: 20rpx;
+          }
+        }
+      }
+    }
+    
+    .analysis-content {
+      padding: 24rpx;
+      padding-left: max(24rpx, env(safe-area-inset-left, 24rpx));
+      padding-right: max(40rpx, env(safe-area-inset-right, 40rpx));
+      overflow-y: auto;
+      
+      // 移动端也确保子元素间距正确
+      > .analysis-section {
+        margin-left: 0;
+        margin-right: 0;
+      }
+      
+      .analysis-section {
+        margin-bottom: 24rpx;
+        
+        .section-header {
+          padding: 20rpx 24rpx;
+          
+          .section-title {
+            font-size: 28rpx;
+          }
+        }
+      }
+      
+      .fortune {
+        .fortune-grid {
+          padding: 24rpx;
+          gap: 20rpx;
+          
+          .fortune-card {
+            padding: 20rpx;
+            
+            .fortune-header {
+              .fortune-icon {
+                font-size: 28rpx;
+              }
+              
+              .fortune-name {
+                font-size: 24rpx;
+              }
+            }
+          }
+        }
+      }
+      
+      .analysis-actions {
+        gap: 12rpx;
+        margin-bottom: 40rpx;
+        
+        .action-button {
+          padding: 20rpx;
+          
+          .action-text {
+            font-size: 24rpx;
+          }
+        }
+      }
+    }
+  }
+}

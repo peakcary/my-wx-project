@@ -1,0 +1,338 @@
+@import '../../app.scss';
+
+.bloodtype-selector {
+  width: 100%;
+  padding: 0;
+  background: transparent;
+
+  // 网格模式样式
+  &.grid-mode {
+    .bloodtype-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16rpx;
+      max-width: 500rpx;
+      margin: 0 auto;
+    }
+    
+    .bloodtype-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16rpx;
+      padding: 24rpx 16rpx;
+      text-align: center;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(10rpx);
+      border: 2rpx solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      
+      &:active {
+        transform: scale(0.98);
+      }
+      
+      .card-icon {
+        margin-bottom: 12rpx;
+        
+        .bloodtype-emoji {
+          font-size: 48rpx;
+          display: block;
+        }
+      }
+      
+      .card-content {
+        .bloodtype-name {
+          font-size: 28rpx;
+          color: #2d3748;
+          font-weight: bold;
+          margin-bottom: 6rpx;
+          display: block;
+        }
+        
+        .bloodtype-symbol {
+          font-size: 22rpx;
+          color: #6c63ff;
+          font-weight: bold;
+          margin-bottom: 8rpx;
+          display: block;
+        }
+        
+        .bloodtype-frequency {
+          font-size: 18rpx;
+          color: #a0aec0;
+          display: block;
+        }
+      }
+      
+      .selected-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(220, 38, 127, 0.9), rgba(255, 107, 107, 0.9));
+        border-radius: 16rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        .selected-text {
+          color: #ffffff;
+          font-size: 24rpx;
+          font-weight: bold;
+          text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
+        }
+      }
+      
+      &.selected {
+        border-color: #dc267f;
+        box-shadow: 0 12rpx 32rpx rgba(220, 38, 127, 0.3);
+        transform: translateY(-4rpx);
+      }
+    }
+  }
+
+  // 列表模式样式
+  &.list-mode {
+    .bloodtype-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16rpx;
+    }
+    
+    .bloodtype-item {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16rpx;
+      padding: 24rpx;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(10rpx);
+      border: 2rpx solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
+      
+      &:active {
+        transform: scale(0.99);
+      }
+      
+      .item-icon {
+        width: 80rpx;
+        height: 80rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #dc267f, #ff6b6b);
+        border-radius: 16rpx;
+        margin-right: 24rpx;
+        
+        .bloodtype-emoji {
+          font-size: 40rpx;
+          color: #ffffff;
+        }
+      }
+      
+      .item-content {
+        flex: 1;
+        
+        .item-header {
+          display: flex;
+          align-items: center;
+          margin-bottom: 8rpx;
+          
+          .bloodtype-name {
+            font-size: 32rpx;
+            color: #2d3748;
+            font-weight: bold;
+            margin-right: 12rpx;
+          }
+          
+          .bloodtype-symbol {
+            font-size: 24rpx;
+            color: #dc267f;
+            font-weight: bold;
+          }
+        }
+        
+        .bloodtype-frequency {
+          font-size: 24rpx;
+          color: #718096;
+          margin-bottom: 4rpx;
+          display: block;
+        }
+        
+        .bloodtype-origin {
+          font-size: 20rpx;
+          color: #a0aec0;
+          display: block;
+        }
+        
+        .bloodtype-description {
+          font-size: 20rpx;
+          color: #a0aec0;
+          margin-top: 8rpx;
+          display: block;
+        }
+      }
+      
+      .selected-indicator {
+        width: 48rpx;
+        height: 48rpx;
+        background: linear-gradient(135deg, #dc267f, #ff6b6b);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        .check-icon {
+          color: #ffffff;
+          font-size: 24rpx;
+          font-weight: bold;
+        }
+      }
+      
+      &.selected {
+        border-color: #dc267f;
+        box-shadow: 0 8rpx 24rpx rgba(220, 38, 127, 0.2);
+        background: rgba(220, 38, 127, 0.05);
+      }
+    }
+  }
+  
+  .selection-summary {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16rpx;
+    padding: 20rpx;
+    text-align: center;
+    backdrop-filter: blur(10rpx);
+    border: 2rpx solid rgba(255, 255, 255, 0.3);
+    margin-top: 16rpx;
+    
+    .summary-text {
+      font-size: 24rpx;
+      color: #2d3748;
+      font-weight: bold;
+    }
+  }
+}
+
+// 响应式适配
+@media (max-width: 600rpx) {
+  .bloodtype-selector {
+    &.grid-mode {
+      .bloodtype-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12rpx;
+        max-width: 450rpx;
+      }
+      
+      .bloodtype-card {
+        padding: 20rpx 12rpx;
+        border-radius: 12rpx;
+        
+        .card-icon {
+          margin-bottom: 8rpx;
+          
+          .bloodtype-emoji {
+            font-size: 40rpx;
+          }
+        }
+        
+        .card-content {
+          .bloodtype-name {
+            font-size: 24rpx;
+            margin-bottom: 4rpx;
+          }
+          
+          .bloodtype-symbol {
+            font-size: 18rpx;
+            margin-bottom: 6rpx;
+          }
+          
+          .bloodtype-frequency {
+            font-size: 16rpx;
+          }
+        }
+        
+        .selected-overlay {
+          .selected-text {
+            font-size: 20rpx;
+          }
+        }
+      }
+    }
+    
+    &.list-mode {
+      .bloodtype-item {
+        padding: 20rpx;
+        
+        .item-icon {
+          width: 64rpx;
+          height: 64rpx;
+          margin-right: 20rpx;
+          
+          .bloodtype-emoji {
+            font-size: 32rpx;
+          }
+        }
+        
+        .item-content {
+          .item-header {
+            .bloodtype-name {
+              font-size: 28rpx;
+            }
+            
+            .bloodtype-symbol {
+              font-size: 20rpx;
+            }
+          }
+          
+          .bloodtype-frequency {
+            font-size: 22rpx;
+          }
+          
+          .bloodtype-origin {
+            font-size: 18rpx;
+          }
+        }
+        
+        .selected-indicator {
+          width: 40rpx;
+          height: 40rpx;
+          
+          .check-icon {
+            font-size: 20rpx;
+          }
+        }
+      }
+    }
+    
+    .selection-summary {
+      padding: 16rpx;
+      margin-top: 12rpx;
+      
+      .summary-text {
+        font-size: 20rpx;
+      }
+    }
+  }
+}
+
+// 动画效果
+@keyframes bloodtype-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.bloodtype-card.selected,
+.bloodtype-item.selected {
+  animation: bloodtype-pulse 2s ease-in-out infinite;
+}

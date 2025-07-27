@@ -1,0 +1,887 @@
+@import '../../app.scss';
+
+.bloodtype-analysis {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+  display: flex;
+  flex-direction: column;
+
+  .analysis-content {
+    flex: 1;
+    padding: 24rpx 32rpx 0;
+    padding-left: max(32rpx, env(safe-area-inset-left, 32rpx));
+    padding-right: max(48rpx, env(safe-area-inset-right, 48rpx));
+    overflow-y: auto;
+    min-height: 0;
+    
+    // 确保所有直接子元素都有适当的间距
+    > .analysis-header,
+    > .analysis-section {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .analysis-header {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 24rpx;
+      padding: 40rpx 32rpx;
+      text-align: center;
+      margin-bottom: 24rpx;
+      backdrop-filter: blur(20rpx);
+      box-shadow: 0 12rpx 32rpx rgba(255, 154, 158, 0.2);
+      border: 2rpx solid rgba(255, 255, 255, 0.3);
+
+      .bloodtype-icon {
+        margin-bottom: 20rpx;
+
+        .icon-emoji {
+          font-size: 80rpx;
+          display: block;
+        }
+      }
+
+      .bloodtype-info {
+        .bloodtype-name {
+          font-size: 36rpx;
+          font-weight: bold;
+          color: #2d3748;
+          margin-bottom: 8rpx;
+          display: block;
+        }
+
+        .bloodtype-frequency {
+          font-size: 24rpx;
+          color: #718096;
+          display: block;
+        }
+      }
+    }
+
+    .analysis-section {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20rpx;
+      margin-bottom: 24rpx;
+      backdrop-filter: blur(20rpx);
+      box-shadow: 0 8rpx 24rpx rgba(255, 154, 158, 0.15);
+      border: 2rpx solid rgba(255, 255, 255, 0.2);
+      overflow: hidden;
+
+      .section-header {
+        background: linear-gradient(135deg, #ff9a9e, #fecfef);
+        padding: 24rpx 32rpx;
+
+        .section-title {
+          font-size: 28rpx;
+          font-weight: bold;
+          color: #ffffff;
+          text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.2);
+          display: block;
+        }
+      }
+
+      .section-content {
+        padding: 32rpx;
+
+        .description {
+          font-size: 26rpx;
+          line-height: 1.6;
+          color: #4a5568;
+          margin-bottom: 24rpx;
+          display: block;
+        }
+
+        .trait-groups {
+          display: flex;
+          flex-direction: column;
+          gap: 20rpx;
+
+          .trait-group {
+            .group-title {
+              font-size: 22rpx;
+              font-weight: bold;
+              color: #2d3748;
+              margin-bottom: 12rpx;
+              display: block;
+            }
+
+            .trait-tags {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 12rpx;
+
+              .trait-tag {
+                padding: 8rpx 16rpx;
+                border-radius: 20rpx;
+                font-size: 20rpx;
+
+                &.positive {
+                  background: linear-gradient(135deg, #48bb78, #68d391);
+                  .trait-text {
+                    color: #ffffff;
+                  }
+                }
+
+                &.negative {
+                  background: linear-gradient(135deg, #f56565, #fc8181);
+                  .trait-text {
+                    color: #ffffff;
+                  }
+                }
+
+                .trait-text {
+                  font-weight: 500;
+                  display: block;
+                }
+              }
+            }
+          }
+        }
+
+        .style-item {
+          margin-bottom: 20rpx;
+
+          .style-label {
+            font-size: 22rpx;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 8rpx;
+            display: block;
+          }
+
+          .style-value {
+            font-size: 24rpx;
+            color: #4a5568;
+            line-height: 1.5;
+            display: block;
+          }
+        }
+
+        .health-group {
+          margin-bottom: 24rpx;
+
+          .group-subtitle {
+            font-size: 22rpx;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 12rpx;
+            display: block;
+          }
+
+          .advice-list {
+            .advice-item {
+              font-size: 22rpx;
+              color: #4a5568;
+              margin-bottom: 8rpx;
+              line-height: 1.5;
+              display: block;
+            }
+          }
+        }
+
+        .career-info {
+          margin-bottom: 24rpx;
+
+          .career-label {
+            font-size: 22rpx;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 12rpx;
+            display: block;
+          }
+
+          .job-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12rpx;
+            margin-bottom: 16rpx;
+
+            .job-tag {
+              background: linear-gradient(135deg, #667eea, #764ba2);
+              padding: 8rpx 16rpx;
+              border-radius: 20rpx;
+
+              .job-text {
+                font-size: 20rpx;
+                color: #ffffff;
+                font-weight: 500;
+                display: block;
+              }
+            }
+          }
+
+          .career-value {
+            font-size: 22rpx;
+            color: #4a5568;
+            line-height: 1.5;
+            display: block;
+          }
+        }
+
+        .match-item {
+          padding: 24rpx;
+          border-radius: 16rpx;
+          margin-bottom: 16rpx;
+
+          &.best {
+            background: linear-gradient(135deg, rgba(72, 187, 120, 0.1), rgba(104, 211, 145, 0.1));
+            border: 2rpx solid #48bb78;
+          }
+
+          &.challenging {
+            background: linear-gradient(135deg, rgba(245, 101, 101, 0.1), rgba(252, 129, 129, 0.1));
+            border: 2rpx solid #f56565;
+          }
+
+          .match-header {
+            display: flex;
+            align-items: center;
+            gap: 16rpx;
+            margin-bottom: 12rpx;
+
+            .match-type {
+              font-size: 22rpx;
+              font-weight: bold;
+              color: #2d3748;
+            }
+
+            .match-bloodtype {
+              font-size: 24rpx;
+              font-weight: bold;
+              color: #ff9a9e;
+            }
+
+            .match-score {
+              font-size: 20rpx;
+              font-weight: bold;
+              color: #718096;
+              margin-left: auto;
+            }
+          }
+
+          .match-description {
+            font-size: 22rpx;
+            color: #4a5568;
+            line-height: 1.5;
+            display: block;
+          }
+        }
+
+        .tips-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16rpx;
+
+          .tip-card {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 16rpx;
+            padding: 24rpx 20rpx;
+            text-align: center;
+            border: 2rpx solid rgba(255, 255, 255, 0.3);
+
+            .tip-icon {
+              font-size: 32rpx;
+              margin-bottom: 8rpx;
+              display: block;
+            }
+
+            .tip-category {
+              font-size: 20rpx;
+              font-weight: bold;
+              color: #2d3748;
+              margin-bottom: 12rpx;
+              display: block;
+            }
+
+            .tip-content {
+              font-size: 18rpx;
+              color: #4a5568;
+              line-height: 1.4;
+              display: block;
+            }
+          }
+        }
+
+        .feature-item {
+          margin-bottom: 20rpx;
+
+          .feature-label {
+            font-size: 22rpx;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 8rpx;
+            display: block;
+          }
+
+          .feature-value {
+            font-size: 24rpx;
+            color: #4a5568;
+            line-height: 1.5;
+            display: block;
+          }
+        }
+
+        .tips-list {
+          margin-top: 20rpx;
+
+          .tips-title {
+            font-size: 22rpx;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 12rpx;
+            display: block;
+          }
+
+          .tip-item {
+            font-size: 22rpx;
+            color: #4a5568;
+            margin-bottom: 8rpx;
+            line-height: 1.5;
+            display: block;
+          }
+        }
+
+        .hobby-tags {
+          margin-top: 20rpx;
+
+          .hobby-title {
+            font-size: 22rpx;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 12rpx;
+            display: block;
+          }
+
+          .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12rpx;
+
+            .hobby-tag {
+              background: linear-gradient(135deg, #667eea, #764ba2);
+              padding: 8rpx 16rpx;
+              border-radius: 20rpx;
+
+              .hobby-text {
+                font-size: 20rpx;
+                color: #ffffff;
+                font-weight: 500;
+                display: block;
+              }
+            }
+          }
+        }
+
+        .fortune-item {
+          margin-bottom: 24rpx;
+          
+          &.overall {
+            padding: 24rpx;
+            background: linear-gradient(135deg, rgba(255, 154, 158, 0.15), rgba(254, 207, 239, 0.15));
+            border-radius: 16rpx;
+            border: 2rpx solid rgba(255, 154, 158, 0.2);
+            text-align: center;
+
+            .fortune-label {
+              font-size: 24rpx;
+              font-weight: bold;
+              color: #2d3748;
+              margin-bottom: 12rpx;
+              display: block;
+            }
+
+            .fortune-content {
+              font-size: 22rpx;
+              color: #4a5568;
+              line-height: 1.6;
+              display: block;
+            }
+          }
+        }
+
+        .fortune-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16rpx;
+
+          .fortune-card {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 16rpx;
+            padding: 24rpx 16rpx;
+            text-align: center;
+            border: 2rpx solid rgba(255, 255, 255, 0.3);
+
+            .fortune-icon {
+              font-size: 32rpx;
+              margin-bottom: 8rpx;
+              display: block;
+            }
+
+            .fortune-title {
+              font-size: 20rpx;
+              font-weight: bold;
+              color: #2d3748;
+              margin-bottom: 12rpx;
+              display: block;
+            }
+
+            .fortune-desc {
+              font-size: 18rpx;
+              color: #4a5568;
+              line-height: 1.4;
+              display: block;
+            }
+          }
+        }
+
+        .life-advice {
+          .advice-text {
+            font-size: 24rpx;
+            color: #2d3748;
+            line-height: 1.6;
+            text-align: center;
+            padding: 32rpx 24rpx;
+            background: linear-gradient(135deg, rgba(255, 154, 158, 0.1), rgba(254, 207, 239, 0.1));
+            border-radius: 20rpx;
+            border: 2rpx solid rgba(255, 154, 158, 0.2);
+            display: block;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+
+  .analysis-footer {
+    flex-shrink: 0;
+    padding: 24rpx 32rpx;
+    padding-left: max(32rpx, env(safe-area-inset-left, 32rpx));
+    padding-right: max(32rpx, env(safe-area-inset-right, 32rpx));
+    padding-bottom: env(safe-area-inset-bottom, 32rpx);
+    background: rgba(255, 154, 158, 0.1);
+    backdrop-filter: blur(10rpx);
+
+    .back-button {
+      background: linear-gradient(135deg, #ff9a9e, #fecfef);
+      border-radius: 16rpx;
+      padding: 20rpx;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 6rpx 20rpx rgba(255, 154, 158, 0.3);
+
+      &:active {
+        transform: translateY(2rpx);
+        box-shadow: 0 3rpx 10rpx rgba(255, 154, 158, 0.3);
+      }
+
+      .button-text {
+        font-size: 28rpx;
+        font-weight: bold;
+        color: #ffffff;
+        text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+}
+
+// 响应式适配
+@media (max-width: 600rpx) {
+  .bloodtype-analysis {
+    .analysis-content {
+      padding: 20rpx 24rpx 0;
+      padding-left: max(24rpx, env(safe-area-inset-left, 24rpx));
+      padding-right: max(40rpx, env(safe-area-inset-right, 40rpx));
+      
+      // 移动端也确保子元素间距正确
+      > .analysis-header,
+      > .analysis-section {
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .analysis-header {
+        padding: 32rpx 24rpx;
+        margin-bottom: 20rpx;
+
+        .bloodtype-icon {
+          margin-bottom: 16rpx;
+
+          .icon-emoji {
+            font-size: 64rpx;
+          }
+        }
+
+        .bloodtype-info {
+          .bloodtype-name {
+            font-size: 32rpx;
+            margin-bottom: 6rpx;
+          }
+
+          .bloodtype-frequency {
+            font-size: 20rpx;
+          }
+        }
+      }
+
+      .analysis-section {
+        margin-bottom: 20rpx;
+
+        .section-header {
+          padding: 20rpx 24rpx;
+
+          .section-title {
+            font-size: 24rpx;
+          }
+        }
+
+        .section-content {
+          padding: 24rpx;
+
+          .description {
+            font-size: 22rpx;
+            margin-bottom: 20rpx;
+          }
+
+          .trait-groups {
+            gap: 16rpx;
+
+            .trait-group {
+              .group-title {
+                font-size: 20rpx;
+                margin-bottom: 10rpx;
+              }
+
+              .trait-tags {
+                gap: 8rpx;
+
+                .trait-tag {
+                  padding: 6rpx 12rpx;
+                  font-size: 18rpx;
+                }
+              }
+            }
+          }
+
+          .style-item {
+            margin-bottom: 16rpx;
+
+            .style-label {
+              font-size: 20rpx;
+              margin-bottom: 6rpx;
+            }
+
+            .style-value {
+              font-size: 20rpx;
+            }
+          }
+
+          .health-group {
+            margin-bottom: 20rpx;
+
+            .group-subtitle {
+              font-size: 20rpx;
+              margin-bottom: 10rpx;
+            }
+
+            .advice-list {
+              .advice-item {
+                font-size: 20rpx;
+                margin-bottom: 6rpx;
+              }
+            }
+          }
+
+          .career-info {
+            margin-bottom: 20rpx;
+
+            .career-label {
+              font-size: 20rpx;
+              margin-bottom: 10rpx;
+            }
+
+            .job-tags {
+              gap: 8rpx;
+              margin-bottom: 12rpx;
+
+              .job-tag {
+                padding: 6rpx 12rpx;
+
+                .job-text {
+                  font-size: 18rpx;
+                }
+              }
+            }
+
+            .career-value {
+              font-size: 20rpx;
+            }
+          }
+
+          .match-item {
+            padding: 20rpx;
+            margin-bottom: 12rpx;
+
+            .match-header {
+              gap: 12rpx;
+              margin-bottom: 10rpx;
+
+              .match-type {
+                font-size: 20rpx;
+              }
+
+              .match-bloodtype {
+                font-size: 22rpx;
+              }
+
+              .match-score {
+                font-size: 18rpx;
+              }
+            }
+
+            .match-description {
+              font-size: 20rpx;
+            }
+          }
+
+          .tips-grid {
+            grid-template-columns: 1fr;
+            gap: 12rpx;
+
+            .tip-card {
+              padding: 20rpx 16rpx;
+
+              .tip-icon {
+                font-size: 28rpx;
+                margin-bottom: 6rpx;
+              }
+
+              .tip-category {
+                font-size: 18rpx;
+                margin-bottom: 10rpx;
+              }
+
+              .tip-content {
+                font-size: 16rpx;
+              }
+            }
+          }
+
+          .feature-item {
+            margin-bottom: 16rpx;
+
+            .feature-label {
+              font-size: 20rpx;
+              margin-bottom: 6rpx;
+            }
+
+            .feature-value {
+              font-size: 20rpx;
+            }
+          }
+
+          .tips-list {
+            margin-top: 16rpx;
+
+            .tips-title {
+              font-size: 20rpx;
+              margin-bottom: 10rpx;
+            }
+
+            .tip-item {
+              font-size: 20rpx;
+              margin-bottom: 6rpx;
+            }
+          }
+
+          .hobby-tags {
+            margin-top: 16rpx;
+
+            .hobby-title {
+              font-size: 20rpx;
+              margin-bottom: 10rpx;
+            }
+
+            .tags-container {
+              gap: 8rpx;
+
+              .hobby-tag {
+                padding: 6rpx 12rpx;
+
+                .hobby-text {
+                  font-size: 18rpx;
+                }
+              }
+            }
+          }
+
+          .fortune-item {
+            margin-bottom: 20rpx;
+            
+            &.overall {
+              padding: 20rpx;
+
+              .fortune-label {
+                font-size: 20rpx;
+                margin-bottom: 10rpx;
+              }
+
+              .fortune-content {
+                font-size: 20rpx;
+              }
+            }
+          }
+
+          .fortune-grid {
+            grid-template-columns: 1fr;
+            gap: 12rpx;
+
+            .fortune-card {
+              padding: 20rpx 16rpx;
+
+              .fortune-icon {
+                font-size: 28rpx;
+                margin-bottom: 6rpx;
+              }
+
+              .fortune-title {
+                font-size: 18rpx;
+                margin-bottom: 10rpx;
+              }
+
+              .fortune-desc {
+                font-size: 16rpx;
+              }
+            }
+          }
+
+          .life-advice {
+            .advice-text {
+              font-size: 20rpx;
+              padding: 24rpx 20rpx;
+            }
+          }
+        }
+      }
+    }
+
+    .analysis-footer {
+      padding: 16rpx 24rpx;
+      padding-left: max(24rpx, env(safe-area-inset-left, 24rpx));
+      padding-right: max(24rpx, env(safe-area-inset-right, 24rpx));
+      padding-bottom: env(safe-area-inset-bottom, 24rpx);
+
+      .back-button {
+        padding: 16rpx;
+
+        .button-text {
+          font-size: 24rpx;
+        }
+      }
+    }
+  }
+}
+
+// 暗色主题支持 - 注释掉因为微信小程序不支持 prefers-color-scheme
+/*
+@media (prefers-color-scheme: dark) {
+  .bloodtype-analysis {
+    .analysis-content {
+      .analysis-header {
+        background: rgba(45, 55, 72, 0.95);
+
+        .bloodtype-info {
+          .bloodtype-name {
+            color: #f7fafc;
+          }
+
+          .bloodtype-frequency {
+            color: #a0aec0;
+          }
+        }
+      }
+
+      .analysis-section {
+        background: rgba(45, 55, 72, 0.95);
+
+        .section-content {
+          .description {
+            color: #e2e8f0;
+          }
+
+          .trait-groups {
+            .trait-group {
+              .group-title {
+                color: #f7fafc;
+              }
+            }
+          }
+
+          .style-item {
+            .style-label {
+              color: #f7fafc;
+            }
+
+            .style-value {
+              color: #e2e8f0;
+            }
+          }
+
+          .health-group {
+            .group-subtitle {
+              color: #f7fafc;
+            }
+
+            .advice-list {
+              .advice-item {
+                color: #e2e8f0;
+              }
+            }
+          }
+
+          .career-info {
+            .career-label {
+              color: #f7fafc;
+            }
+
+            .career-value {
+              color: #e2e8f0;
+            }
+          }
+
+          .match-item {
+            .match-header {
+              .match-type {
+                color: #f7fafc;
+              }
+            }
+
+            .match-description {
+              color: #e2e8f0;
+            }
+          }
+
+          .tips-grid {
+            .tip-card {
+              background: rgba(74, 85, 104, 0.6);
+
+              .tip-category {
+                color: #f7fafc;
+              }
+
+              .tip-content {
+                color: #e2e8f0;
+              }
+            }
+          }
+
+          .life-advice {
+            .advice-text {
+              color: #f7fafc;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+*/

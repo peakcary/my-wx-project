@@ -22,6 +22,27 @@ export default function Index () {
     })
   }
 
+  const handleStartConstellation = () => {
+    console.log('点击星座分析')
+    Taro.navigateTo({
+      url: '/pages/constellation/constellation'
+    })
+  }
+
+  const handleStartBloodType = () => {
+    console.log('点击血型分析')
+    Taro.navigateTo({
+      url: '/pages/bloodtype/bloodtype'
+    })
+  }
+
+  const handleStartTarot = () => {
+    console.log('点击塔罗牌占卜')
+    Taro.navigateTo({
+      url: '/pages/tarot/tarot'
+    })
+  }
+
   const games = [
     { 
       icon: '🧩', 
@@ -36,6 +57,27 @@ export default function Index () {
       desc: '数学计算挑战', 
       difficulty: '⭐⭐',
       action: handleStart24Game
+    },
+    { 
+      icon: '🌟', 
+      title: '星座分析', 
+      desc: '探索你的星座奥秘', 
+      difficulty: '⭐',
+      action: handleStartConstellation
+    },
+    { 
+      icon: '🩸', 
+      title: '血型分析', 
+      desc: '探索血型背后的性格密码', 
+      difficulty: '⭐',
+      action: handleStartBloodType
+    },
+    { 
+      icon: '🔮', 
+      title: '塔罗占卜', 
+      desc: '倾听宇宙的神秘指引', 
+      difficulty: '⭐',
+      action: handleStartTarot
     }
   ]
   
