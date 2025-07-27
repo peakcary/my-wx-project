@@ -102,7 +102,7 @@ export default function BloodTypeSelector({
       {selectedBloodType && (
         <View className="selection-summary">
           <Text className="summary-text">
-            已选择: {bloodTypes.find(bt => bt.id === selectedBloodType)?.name}
+            已选择: {(bloodTypes.find(bt => bt.id === selectedBloodType) || {}).name || ''}
           </Text>
         </View>
       )}

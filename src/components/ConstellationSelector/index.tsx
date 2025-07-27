@@ -108,7 +108,7 @@ export default function ConstellationSelector({
       {selectedConstellation && (
         <View className="selection-summary">
           <Text className="summary-text">
-            已选择: {constellations.find(c => c.id === selectedConstellation)?.name}
+            已选择: {(constellations.find(c => c.id === selectedConstellation) || {}).name || ''}
           </Text>
         </View>
       )}

@@ -72,7 +72,7 @@ export default function Game24() {
     setCurrentInput(newInput)
     
     // 重新计算已使用的数字
-    const usedNums = newInput.match(/\d+/g)?.map(Number) || []
+    const usedNums = (newInput.match(/\d+/g) || []).map(Number)
     const newUsedNumbers = [false, false, false, false]
     
     numbers.forEach((num, index) => {
@@ -144,7 +144,7 @@ export default function Game24() {
     
     // 模拟计算过程，提升用户体验
     setTimeout(() => {
-      const usedNums = expr.match(/\d+/g)?.map(Number) || []
+      const usedNums = (expr.match(/\d+/g) || []).map(Number)
       const sortedNumbers = [...numbers].sort((a, b) => a - b)
       const sortedUsed = [...usedNums].sort((a, b) => a - b)
 

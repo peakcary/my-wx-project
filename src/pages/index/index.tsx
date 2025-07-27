@@ -48,50 +48,53 @@ export default function Index () {
       icon: '🧩', 
       title: '经典数独', 
       desc: '9x9传统数独谜题', 
-      difficulty: '⭐⭐⭐',
+      category: '逻辑游戏',
       action: handleStartGame
     },
     { 
       icon: '🎲', 
       title: '24点游戏', 
       desc: '数学计算挑战', 
-      difficulty: '⭐⭐',
+      category: '逻辑游戏',
       action: handleStart24Game
-    },
+    }
+  ]
+  
+  const divination = [
     { 
       icon: '🌟', 
       title: '星座分析', 
       desc: '探索你的星座奥秘', 
-      difficulty: '⭐',
+      category: '占星测算',
       action: handleStartConstellation
     },
     { 
       icon: '🩸', 
       title: '血型分析', 
       desc: '探索血型背后的性格密码', 
-      difficulty: '⭐',
+      category: '性格测算',
       action: handleStartBloodType
     },
     { 
       icon: '🔮', 
       title: '塔罗占卜', 
       desc: '倾听宇宙的神秘指引', 
-      difficulty: '⭐',
+      category: '神秘占卜',
       action: handleStartTarot
     }
   ]
   
   const features = [
-    { icon: '⏱️', title: '计时挑战', desc: '挑战解题速度' },
-    { icon: '🎯', title: '多种难度', desc: '简单到困难' },
-    { icon: '💡', title: '智能提示', desc: '卡住时获得帮助' },
-    { icon: '🏆', title: '成就系统', desc: '解锁更多奖励' }
+    { icon: '🎯', title: '逻辑挑战', desc: '锻炼思维能力' },
+    { icon: '🔮', title: '神秘占卜', desc: '探索未知奥秘' },
+    { icon: '💡', title: '趣味测算', desc: '了解自己性格' },
+    { icon: '🌟', title: '多样体验', desc: '游戏娱乐兼备' }
   ]
   
-  const gameRules = [
-    { step: '1', desc: '选择你喜欢的游戏类型' },
-    { step: '2', desc: '根据提示完成挑战' },
-    { step: '3', desc: '挑战更高难度获得成就' }
+  const appGuide = [
+    { step: '1', desc: '选择游戏或占卜测算类型' },
+    { step: '2', desc: '按照引导完成体验' },
+    { step: '3', desc: '享受娱乐与探索的乐趣' }
   ]
 
   return (
@@ -99,15 +102,15 @@ export default function Index () {
       {/* 头部区域 */}
       <View className='header'>
         <View className='logo-area'>
-          <Text className='logo-text'>🧩</Text>
-          <Text className='app-title'>智力游戏大全</Text>
-          <Text className='app-subtitle'>挑战你的逻辑思维</Text>
+          <Text className='logo-text'>✨</Text>
+          <Text className='app-title'>趣味应用大全</Text>
+          <Text className='app-subtitle'>游戏娱乐 · 占卜测算</Text>
         </View>
       </View>
 
-      {/* 游戏选择 */}
+      {/* 逻辑游戏区域 */}
       <View className='games-section'>
-        <Text className='section-title'>🎮 选择游戏</Text>
+        <Text className='section-title'>🎮 逻辑游戏</Text>
         <View className='games-grid'>
           {games.map((game, index) => (
             <View 
@@ -118,7 +121,26 @@ export default function Index () {
               <Text className='game-icon'>{game.icon}</Text>
               <Text className='game-title'>{game.title}</Text>
               <Text className='game-desc'>{game.desc}</Text>
-              <Text className='game-difficulty'>{game.difficulty}</Text>
+              <Text className='game-category'>{game.category}</Text>
+            </View>
+          ))}
+        </View>
+      </View>
+
+      {/* 占卜测算区域 */}
+      <View className='divination-section'>
+        <Text className='section-title'>🔮 占卜测算</Text>
+        <View className='divination-grid'>
+          {divination.map((item, index) => (
+            <View 
+              key={index} 
+              className='divination-card'
+              onClick={item.action}
+            >
+              <Text className='divination-icon'>{item.icon}</Text>
+              <Text className='divination-title'>{item.title}</Text>
+              <Text className='divination-desc'>{item.desc}</Text>
+              <Text className='divination-category'>{item.category}</Text>
             </View>
           ))}
         </View>
@@ -126,7 +148,7 @@ export default function Index () {
 
       {/* 特色功能 */}
       <View className='features'>
-        <Text className='section-title'>✨ 游戏特色</Text>
+        <Text className='section-title'>✨ 应用特色</Text>
         <View className='feature-grid'>
           {features.map((feature, index) => (
             <View key={index} className='feature-item'>
@@ -138,14 +160,14 @@ export default function Index () {
         </View>
       </View>
 
-      {/* 游戏规则 */}
-      <View className='game-rules'>
+      {/* 使用指南 */}
+      <View className='app-guide'>
         <Text className='section-title'>📋 如何开始</Text>
-        <View className='rules-list'>
-          {gameRules.map((rule, index) => (
-            <View key={index} className='rule-item'>
-              <View className='rule-step'>{rule.step}</View>
-              <Text className='rule-desc'>{rule.desc}</Text>
+        <View className='guide-list'>
+          {appGuide.map((guide, index) => (
+            <View key={index} className='guide-item'>
+              <View className='guide-step'>{guide.step}</View>
+              <Text className='guide-desc'>{guide.desc}</Text>
             </View>
           ))}
         </View>
@@ -154,7 +176,7 @@ export default function Index () {
       {/* 底部激励 */}
       <View className='bottom-section'>
         <View className='achievement'>
-          <Text className='achievement-text'>🏆 挑战自己，成为智力游戏大师</Text>
+          <Text className='achievement-text'>🌟 发现自己，探索无限可能</Text>
         </View>
       </View>
 
